@@ -58,9 +58,11 @@ These rules instruct Google Cloud to send ESP (IPsec), UDP 500, and UDP 4500 tra
 
 ```bash
 gcloud compute forwarding-rules create on-prem-vpn-gw-fr-esp --ip-protocol=ESP --address=on-prem-vpn-gw-ip --target-vpn-gateway=on-prem-vpn-gw --region=asia-east1
-
+```
+```bash
 gcloud compute forwarding-rules create on-prem-vpn-gw-fr-udp500 --ip-protocol=UDP --ports=500 --address=on-prem-vpn-gw-ip --target-vpn-gateway=on-prem-vpn-gw --region=asia-east1
-
+```
+```bash
 gcloud compute forwarding-rules create on-prem-vpn-gw-fr-udp4500 --ip-protocol=UDP --ports=4500 --address=on-prem-vpn-gw-ip --target-vpn-gateway=on-prem-vpn-gw --region=asia-east1
 ```
 
@@ -96,9 +98,11 @@ These rules instruct Google Cloud to send ESP (IPsec), UDP 500, and UDP 4500 tra
 
 ```bash
 gcloud compute forwarding-rules create cloud-vpn-gw-fr-esp --ip-protocol=ESP --address=cloud-vpn-gw-ip --target-vpn-gateway=cloud-vpn-gw --region=asia-east1
-
+```
+```bash
 gcloud compute forwarding-rules create cloud-vpn-gw-fr-udp500 --ip-protocol=UDP --ports=500 --address=cloud-vpn-gw-ip --target-vpn-gateway=cloud-vpn-gw --region=asia-east1
-
+```
+```bash
 gcloud compute forwarding-rules create cloud-vpn-gw-fr-udp4500 --ip-protocol=UDP --ports=4500 --address=cloud-vpn-gw-ip --target-vpn-gateway=cloud-vpn-gw --region=asia-east1
 ```
 
