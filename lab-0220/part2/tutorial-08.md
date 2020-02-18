@@ -21,7 +21,7 @@ Click the **Start** button to move to the next step.
 SSH login VM data-processor, and then run following command: 
 
 ```
-gsutil cp table-xyz-20200101.csv gs://{{project_id}}-youbike-bucket/table-xyz-20200101.csv
+gsutil cp ~/table-xyz-20200101.csv gs://{{project_id}}-bucket/table-xyz-20200101.csv
 ```
 
 For more details, visit ([uploading objects](https://cloud.google.com/storage/docs/uploading-objects))
@@ -29,5 +29,5 @@ For more details, visit ([uploading objects](https://cloud.google.com/storage/do
 Try following command to verify result:
 
 ```
-gsutil cat gs://{{project_id}}-youbike-bucket/table-xyz-20200101.csv
+gsutil cat gs://{{project_id}}-bucket/table-xyz-20200101.csv
 ```
