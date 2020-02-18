@@ -19,7 +19,7 @@ Click the **Start** button to move to the next step.
 ## Create A Dataset
 
 ```bash
-bq --location=asia-east1 mk --dataset --default_table_expiration 0 --default_partition_expiration 31536000 {{project_id}}:dataset_ooo
+bq --location=asia-northeast1 mk --dataset --default_table_expiration 0 --default_partition_expiration 31536000 {{project_id}}:dataset_ooo
 ```
 
 For more details, visit ([creating datasets](https://cloud.google.com/bigquery/docs/datasets#bigquery-create-dataset-cli))
