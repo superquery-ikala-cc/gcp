@@ -46,6 +46,13 @@ gcloud compute firewall-rules create on-prem-fw-ssh-rule --network=on-prem-net -
 
 ```bash
 gcloud compute instances delete master-db --zone=asia-east1-a
+```
+```bash
 gcloud compute networks subnets delete on-prem-db-subnet --region=asia-east1
+```
+```bash
+gcloud compute firewall-rules delete on-prem-fw-ssh-rule
+```
+```bash
 gcloud compute networks delete on-prem-net
 ```

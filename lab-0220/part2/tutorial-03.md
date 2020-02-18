@@ -24,6 +24,8 @@ Click the **Start** button to move to the next step.
 
 ```bash
 gcloud compute addresses create on-prem-vpn-gw-ip --region=asia-east1
+```
+```bash
 on_prem_vpn_gw_ip=$(gcloud compute addresses describe on-prem-vpn-gw-ip --region=asia-east1 --format='get(address)')
 ```
 
@@ -31,6 +33,8 @@ on_prem_vpn_gw_ip=$(gcloud compute addresses describe on-prem-vpn-gw-ip --region
 
 ```bash
 gcloud compute addresses create cloud-vpn-gw-ip --region=asia-east1
+```
+```bash
 cloud_vpn_gw_ip=$(gcloud compute addresses describe cloud-vpn-gw-ip --region=asia-east1 --format='get(address)')
 ```
 
@@ -142,10 +146,22 @@ gcloud compute addresses delete on-prem-vpn-gw-ip
 
 ```bash
 gcloud compute routes delete cloud-vpn-gw-route
+```
+```bash
 gcloud compute vpn-tunnels delete cloud-vpn-gw-tunnel
+```
+```bash
 gcloud compute forwarding-rules delete cloud-vpn-gw-fr-udp4500
+```
+```bash
 gcloud compute forwarding-rules delete cloud-vpn-gw-fr-udp500
+```
+```bash
 gcloud compute forwarding-rules delete cloud-vpn-gw-fr-esp
+```
+```bash
 gcloud compute target-vpn-gateways delete cloud-vpn-gw
+```
+```bash
 gcloud compute addresses delete cloud-vpn-gw-ip
 ```

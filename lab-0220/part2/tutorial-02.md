@@ -46,6 +46,13 @@ gcloud compute firewall-rules create cloud-fw-ssh-rule --network=cloud-net --all
 
 ```bash
 gcloud compute instances delete slave-db --zone=asia-east1-a
+```
+```bash
 gcloud compute networks subnets delete cloud-db-subnet --region=asia-east1
+```
+```bash
+gcloud compute firewall-rules delete cloud-fw-ssh-rule
+```
+```bash
 gcloud compute networks delete cloud-net
 ```
