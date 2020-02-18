@@ -89,7 +89,7 @@ gcloud compute firewall-rules create cloud-fw-vpn-rule --network=cloud-net --all
 ### VPN Gateway
 
 ```bash
-gcloud compute target-vpn-gateways create cloud-vpn-gw --network=cloud-net --region=asia-east1
+gcloud compute target-vpn-gateways create cloud-vpn-gw --network=cloud-net --region=asia-northeast1
 ```
 
 ### Forwarding Rule
@@ -97,25 +97,25 @@ gcloud compute target-vpn-gateways create cloud-vpn-gw --network=cloud-net --reg
 These rules instruct Google Cloud to send ESP (IPsec), UDP 500, and UDP 4500 traffic to the gateway.
 
 ```bash
-gcloud compute forwarding-rules create cloud-vpn-gw-fr-esp --ip-protocol=ESP --address=cloud-vpn-gw-ip --target-vpn-gateway=cloud-vpn-gw --region=asia-east1
+gcloud compute forwarding-rules create cloud-vpn-gw-fr-esp --ip-protocol=ESP --address=cloud-vpn-gw-ip --target-vpn-gateway=cloud-vpn-gw --region=asia-northeast1
 ```
 ```bash
-gcloud compute forwarding-rules create cloud-vpn-gw-fr-udp500 --ip-protocol=UDP --ports=500 --address=cloud-vpn-gw-ip --target-vpn-gateway=cloud-vpn-gw --region=asia-east1
+gcloud compute forwarding-rules create cloud-vpn-gw-fr-udp500 --ip-protocol=UDP --ports=500 --address=cloud-vpn-gw-ip --target-vpn-gateway=cloud-vpn-gw --region=asia-northeast1
 ```
 ```bash
-gcloud compute forwarding-rules create cloud-vpn-gw-fr-udp4500 --ip-protocol=UDP --ports=4500 --address=cloud-vpn-gw-ip --target-vpn-gateway=cloud-vpn-gw --region=asia-east1
+gcloud compute forwarding-rules create cloud-vpn-gw-fr-udp4500 --ip-protocol=UDP --ports=4500 --address=cloud-vpn-gw-ip --target-vpn-gateway=cloud-vpn-gw --region=asia-northeast1
 ```
 
 ### Policy-Based VPN Tunnel
 
 ```bash
-gcloud compute vpn-tunnels create cloud-vpn-gw-tunnel --peer-address=${on_prem_vpn_gw_ip} --ike-version=2 --shared-secret=shared-secret --local-traffic-selector=192.168.200.0/24 --remote-traffic-selector=192.168.100.0/24 --target-vpn-gateway=cloud-vpn-gw --region=asia-east1
+gcloud compute vpn-tunnels create cloud-vpn-gw-tunnel --peer-address=${on_prem_vpn_gw_ip} --ike-version=2 --shared-secret=shared-secret --local-traffic-selector=192.168.200.0/24 --remote-traffic-selector=192.168.100.0/24 --target-vpn-gateway=cloud-vpn-gw --region=asia-northeast1
 ```
 
 ### Route
 
 ```bash
-gcloud compute routes create cloud-vpn-gw-route --destination-range=192.168.100.0/24 --network=cloud-net --next-hop-vpn-tunnel-region=asia-east1 --next-hop-vpn-tunnel=cloud-vpn-gw-tunnel 
+gcloud compute routes create cloud-vpn-gw-route --destination-range=192.168.100.0/24 --network=cloud-net --next-hop-vpn-tunnel-region=asia-northeast1 --next-hop-vpn-tunnel=cloud-vpn-gw-tunnel 
 ```
 
 ## Check Status
@@ -129,7 +129,7 @@ gcloud compute vpn-tunnels describe on-prem-vpn-gw-tunnel --region=asia-east1 --
 ### Cloud VPN Tunnel
 
 ```bash
-gcloud compute vpn-tunnels describe cloud-vpn-gw-tunnel --region=asia-east1 --format='flattened(status,detailedStatus)'
+gcloud compute vpn-tunnels describe cloud-vpn-gw-tunnel --region=asia-northeast1 --format='flattened(status,detailedStatus)'
 ```
 
 ## Clean Up
@@ -138,11 +138,23 @@ gcloud compute vpn-tunnels describe cloud-vpn-gw-tunnel --region=asia-east1 --fo
 
 ```bash
 gcloud compute routes delete on-prem-vpn-gw-route
+```
+```bash
 gcloud compute vpn-tunnels delete on-prem-vpn-gw-tunnel
+```
+```bash
 gcloud compute forwarding-rules delete on-prem-vpn-gw-fr-udp4500
+```
+```bash
 gcloud compute forwarding-rules delete on-prem-vpn-gw-fr-udp500
+```
+```bash
 gcloud compute forwarding-rules delete on-prem-vpn-gw-fr-esp
+```
+```bash
 gcloud compute target-vpn-gateways delete on-prem-vpn-gw
+```
+```bash
 gcloud compute addresses delete on-prem-vpn-gw-ip
 ```
 
