@@ -54,7 +54,9 @@ Choose an text editor
 
 At the bottom, add the code for your cron job.
 
-`* 3 * * * bash daily-job.sh`
+```
+* 3 * * * bash daily-job.sh
+```
 
 Save and exit text editor
 
