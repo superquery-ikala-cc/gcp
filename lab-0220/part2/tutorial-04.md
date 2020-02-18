@@ -25,7 +25,7 @@ gcloud iam service-accounts create dlp-gcs-bq
 ## Create A Server
 
 ```bash
-gcloud compute instances create data-processor --network=cloud-net --subnet=cloud-db-subnet --zone=asia-east1-a --service-account=dlp-gcs-bq@{{project_id}}.iam.gserviceaccount.com --scopes=cloud-platform
+gcloud compute instances create data-processor --network=cloud-net --subnet=cloud-db-subnet --zone=asia-northeast1-a --service-account=dlp-gcs-bq@{{project_id}}.iam.gserviceaccount.com --scopes=cloud-platform
 ```
 
 ## Setup Firewall
