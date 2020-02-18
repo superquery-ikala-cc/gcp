@@ -89,4 +89,8 @@ bash ~/daily-job.sh
 bq query --use_legacy_sql=false 'SELECT * FROM `{{project_id}}.dataset_ooo.table_xyz_deid`'
 ```
 
-(optional) Change crob job to `* * * * *` then use command `watch -n 60 'ls'` to see what will happend
+(optional) Change crob job to **`* * * * *`** then use following command to see what will happend
+
+```
+watch -n 60 'ls ~'
+```
