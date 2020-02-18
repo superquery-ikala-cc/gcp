@@ -39,7 +39,7 @@ gcloud compute firewall-rules create cloud-fw-data-processor-rule --network=clou
 SSH login VM data-processor, and then run following command: 
 
 ```
-cat > table-xyz-20200101.csv <<DATA
+cat > ~/table-xyz-20200101.csv <<DATA
 name,birth_date,register_date,credit_card
 Ann,01/01/1970,07/21/1996,4532908762519852
 James,03/06/1988,04/09/2001,4301261899725540
