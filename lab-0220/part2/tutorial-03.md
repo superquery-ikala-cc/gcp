@@ -32,10 +32,10 @@ on_prem_vpn_gw_ip=$(gcloud compute addresses describe on-prem-vpn-gw-ip --region
 ### Reserve a regional external (static) IP address for cloud VPN Gateway
 
 ```bash
-gcloud compute addresses create cloud-vpn-gw-ip --region=asia-east1
+gcloud compute addresses create cloud-vpn-gw-ip --region=asia-northeast1
 ```
 ```bash
-cloud_vpn_gw_ip=$(gcloud compute addresses describe cloud-vpn-gw-ip --region=asia-east1 --format='get(address)')
+cloud_vpn_gw_ip=$(gcloud compute addresses describe cloud-vpn-gw-ip --region=asia-northeast1 --format='get(address)')
 ```
 
 ## Setup On-Prem VPN
