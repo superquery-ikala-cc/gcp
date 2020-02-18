@@ -19,7 +19,7 @@ Click the **Start** button to move to the next step.
 ## Create A Dataset
 
 ```bash
-bq --location=asia-east1 mk --dataset --default_table_expiration 0 --default_partition_expiration 31536000 {{project_id}}:youbike_dataset
+bq --location=asia-east1 mk --dataset --default_table_expiration 0 --default_partition_expiration 31536000 {{project_id}}:dataset_ooo
 ```
 
 For more details, visit ([creating datasets](https://cloud.google.com/bigquery/docs/datasets#bigquery-create-dataset-cli))
@@ -37,7 +37,7 @@ gcloud projects add-iam-policy-binding {{project_id}} --member serviceAccount:dl
 SSH login VM data-processor, and then run following command: 
 
 ```
-bq --location=asia-east1 load --autodetect --source_format=CSV {{project_id}}:youbike_dataset.table_xyz_deid ~/table-xyz-20200101-deid.csv
+bq --location=asia-northeast1 load --autodetect --source_format=CSV {{project_id}}:dataset_ooo.table_xyz_deid ~/table-xyz-20200101-deid.csv
 ```
 
 For more details, visit ([loading data from a local file](https://cloud.google.com/bigquery/docs/loading-data-local))
@@ -45,7 +45,7 @@ For more details, visit ([loading data from a local file](https://cloud.google.c
 Try following command to query data:
 
 ```
-bq query --use_legacy_sql=false 'SELECT * FROM `{{project_id}}.youbike_dataset.table_xyz_deid`'
+bq query --use_legacy_sql=false 'SELECT * FROM `{{project_id}}.dataset_ooo.table_xyz_deid`'
 ```
 
 <walkthrough-footnote>NOTE: with best practices, you should avoid select * in the query</walkthrough-footnote>
