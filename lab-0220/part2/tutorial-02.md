@@ -25,13 +25,13 @@ gcloud compute networks create cloud-net --subnet-mode=custom
 ## Create A Subnet
 
 ```bash
-gcloud compute networks subnets create cloud-db-subnet --network=cloud-net --range=192.168.200.0/24 --region=asia-east2
+gcloud compute networks subnets create cloud-db-subnet --network=cloud-net --range=192.168.200.0/24 --region=asia-northeast1
 ```
 
 ## Create A Server
 
 ```bash
-gcloud compute instances create slave-db --network=cloud-net --subnet=cloud-db-subnet --zone=asia-east2-a
+gcloud compute instances create slave-db --network=cloud-net --subnet=cloud-db-subnet --zone=asia-northeast1-a
 ```
 
 ## Setup Firewall
@@ -45,13 +45,13 @@ gcloud compute firewall-rules create cloud-fw-ssh-rule --network=cloud-net --all
 ## Clean Up
 
 ```bash
-gcloud compute instances delete slave-db --zone=asia-east2-a
-```
-```bash
-gcloud compute networks subnets delete cloud-db-subnet --region=asia-east2
-```
-```bash
 gcloud compute firewall-rules delete cloud-fw-ssh-rule
+```
+```bash
+gcloud compute instances delete slave-db --zone=asia-northeast1-a
+```
+```bash
+gcloud compute networks subnets delete cloud-db-subnet --region=asia-northeast1
 ```
 ```bash
 gcloud compute networks delete cloud-net
