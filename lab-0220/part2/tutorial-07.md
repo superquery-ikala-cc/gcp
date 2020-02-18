@@ -19,7 +19,7 @@ Click the **Start** button to move to the next step.
 ## Create A Bucket
 
 ```bash
-gsutil mb -p {{project_id}} -c STANDARD -l asia-east1 -b on  gs://{{project_id}}-youbike-bucket/
+gsutil mb -p {{project_id}} -c STANDARD -l asia-northeast1 -b on  gs://{{project_id}}-youbike-bucket/
 ```
 
 For more details, visit ([creating storage buckets](https://cloud.google.com/storage/docs/creating-buckets#storage-create-bucket-gsutil))
@@ -37,7 +37,7 @@ gcloud projects add-iam-policy-binding {{project_id}} --member serviceAccount:dl
 SSH login VM data-processor, and then run following command: 
 
 ```
-bq --location=asia-east1 extract --destination_format CSV --compression GZIP --field_delimiter , --print_header=true {{project_id}}:youbike_dataset.table_xyz_deid gs://{{project_id}}-youbike-bucket/table-xyz-deid.csv.gzip
+bq --location=asia-northeast1 extract --destination_format CSV --compression GZIP --field_delimiter , --print_header=true {{project_id}}:youbike_dataset.table_xyz_deid gs://{{project_id}}-youbike-bucket/table-xyz-deid.csv.gzip
 ```
 
 For more details, visit ([exporting table data](https://cloud.google.com/bigquery/docs/exporting-data))
