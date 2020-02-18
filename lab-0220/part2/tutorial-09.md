@@ -74,9 +74,9 @@ DATA
 
 cd ~/python-docs-samples/dlp
 
-python deid.py deid_date_shift gcp-expert-sandbox-jim ~/table-xyz-2020010\${id}.csv ~/table-xyz-2020010\${id}-deid.csv -100 100 birth_date
+python deid.py deid_date_shift {{project_id}} ~/table-xyz-2020010\${id}.csv ~/table-xyz-2020010\${id}-deid.csv -100 100 birth_date
 
-bq --location=asia-northeast1 load --autodetect --source_format=CSV gcp-expert-sandbox-jim:dataset_ooo.table_xyz_deid ~/table-xyz-2020010\${id}-deid.csv
+bq --location=asia-northeast1 load --autodetect --source_format=CSV {{project_id}}:dataset_ooo.table_xyz_deid ~/table-xyz-2020010\${id}-deid.csv
 SCRIPT
 ```
 
@@ -86,7 +86,7 @@ Try run `daily-job.sh`
 bash ~/daily-job.sh
 ```
 ```
-bq query --use_legacy_sql=false 'SELECT * FROM `gcp-expert-sandbox-jim.dataset_ooo.table_xyz_deid`'
+bq query --use_legacy_sql=false 'SELECT * FROM `{{project_id}}.dataset_ooo.table_xyz_deid`'
 ```
 
 (optional) Change crob job to `* * * * *` then use command `watch -n 60 'ls'` to see what will happend
