@@ -14,7 +14,7 @@ Click the **Start** button to move to the next step.
 
 ## Enable APIs
 
-<walkthrough-enable-apis apis="compute.googleapis.com"></walkthrough-enable-apis>
+<walkthrough-enable-apis apis="cloudresourcemanager.googleapis.com,serviceusage.googleapis.com"></walkthrough-enable-apis>
 
 ## components
 

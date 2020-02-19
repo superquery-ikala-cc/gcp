@@ -14,9 +14,32 @@ Click the **Start** button to move to the next step.
 
 ## Enable APIs
 
-<walkthrough-enable-apis apis="compute.googleapis.com"></walkthrough-enable-apis>
+<walkthrough-enable-apis apis="cloudresourcemanager.googleapis.com"></walkthrough-enable-apis>
 
-## TBD
+## APIs Explorer
 
-## Clean Up
+Open [APIs EXplorer](https://developers.google.com/apis-explorer)
 
+Search **`Cloud Resource Manager API`**
+
+Select **`Cloud Resource Manager API`**
+
+Select **`v1`**
+
+Select **`projects`**
+
+Select **`list`**
+
+Click **`EXECUTE`**
+
+Select an user account
+
+Click **`Allow`**
+
+Take a look at the **`HTTP request`**
+
+Use following **`curl`** command to execute this API
+
+```bash
+curl -X GET -H "Authorization: Bearer $(gcloud auth print-access-token)" https://cloudresourcemanager.googleapis.com/v1/projects
+```
