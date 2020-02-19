@@ -140,7 +140,7 @@ gcloud compute vpn-tunnels describe cloud-vpn-gw-tunnel --region=asia-northeast1
 gcloud compute routes delete on-prem-vpn-gw-route
 ```
 ```bash
-gcloud compute vpn-tunnels delete on-prem-vpn-gw-tunnel
+gcloud compute vpn-tunnels delete on-prem-vpn-gw-tunnel --region=asia-east1
 ```
 ```bash
 gcloud compute forwarding-rules delete on-prem-vpn-gw-fr-udp4500
@@ -164,7 +164,7 @@ gcloud compute addresses delete on-prem-vpn-gw-ip
 gcloud compute routes delete cloud-vpn-gw-route
 ```
 ```bash
-gcloud compute vpn-tunnels delete cloud-vpn-gw-tunnel
+gcloud compute vpn-tunnels delete cloud-vpn-gw-tunnel --region=asia-northeast1
 ```
 ```bash
 gcloud compute forwarding-rules delete cloud-vpn-gw-fr-udp4500
