@@ -90,3 +90,32 @@ client = bigquery.Client()
 quit()
 ```
 
+## Application Credentials
+
+### Method 2
+
+```
+export GOOGLE_APPLICATION_CREDENTIALS='/path/to/service-account-key-file.json'
+```
+
+### Method 3
+
+[Available scopes](https://developers.google.com/identity/protocols/googlescopes)
+
+```
+from google.oauth2 import service_account
+SCOPES = ['https://www.googleapis.com/auth/cloud-platform']
+SERVICE_ACCOUNT_FILE = '/path/to/service-account-key-file.json'
+credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+```
+```
+resourcemanager = googleapiclient.discovery.build('cloudresourcemanager', 'v1', credentials=credentials)
+```
+```
+client = storage.Client(credentials=credentials)
+```
+```
+client = bigquery.Client(credentials=credentials)
+```
+
+<walkthrough-footnote>NOTE: with principle of least priviledge consideration, https://www.googleapis.com/auth/cloud-platform may not be appropriate</walkthrough-footnote>
