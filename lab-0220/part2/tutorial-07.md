@@ -19,7 +19,7 @@ Click the **Start** button to move to the next step.
 ## Create A Bucket
 
 ```bash
-gsutil mb -p {{project_id}} -c STANDARD -l asia-northeast1 -b on  gs://{{project_id}}-bucket/
+gsutil mb -p {{project_id}} -c STANDARD -l asia-northeast1 -b on gs://{{project_id}}-bucket/
 ```
 
 For more details, visit ([creating storage buckets](https://cloud.google.com/storage/docs/creating-buckets#storage-create-bucket-gsutil))
@@ -58,4 +58,7 @@ zcat table-xyz-deid.csv.gzip
 
 ```bash
 gcloud projects remove-iam-policy-binding  {{project_id}} --member serviceAccount:dlp-gcs-bq@{{project_id}}.iam.gserviceaccount.com --role roles/storage.admin
+```
+```bash
+gsutil rm -r gs://{{project_id}}-bucket
 ```
