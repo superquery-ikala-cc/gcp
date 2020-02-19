@@ -19,10 +19,10 @@ Click the **Start** button to move to the next step.
 ## Google API Client Libraries
 
 ```bash
-virtualenv g-api
+virtualenv ~/g-api
 ```
 ```bash
-source g-api/bin/activate
+source ~/g-api/bin/activate
 ```
 ```bash
 pip install --upgrade google-api-python-client
@@ -45,10 +45,10 @@ resourcemanager.projects().list().execute()
 [Available libraries](https://github.com/googleapis/google-cloud-python#google-cloud-python-client)
 
 ```bash
-virtualenv g-api
+virtualenv ~/g-api
 ```
 ```bash
-source g-api/bin/activate
+source ~/g-api/bin/activate
 ```
 
 ### e.g., Google Cloud Storage
