@@ -14,9 +14,70 @@ Click the **Start** button to move to the next step.
 
 ## Enable APIs
 
-<walkthrough-enable-apis apis="compute.googleapis.com"></walkthrough-enable-apis>
+<walkthrough-enable-apis apis="cloudresourcemanager.googleapis.com"></walkthrough-enable-apis>
 
-## TBD
+## Google API Client Libraries
 
-## Clean Up
+```bash
+virtualenv g-api
+```
+```bash
+source g-api/bin/activate
+```
+```bash
+pip install --upgrade google-api-python-client
+```
+```bash
+python
+```
+```bash
+import googleapiclient.discovery
+```
+```bash
+resourcemanager = googleapiclient.discovery.build('cloudresourcemanager', 'v1')
+```
+```bash
+resourcemanager.projects().list().execute()
+```
+
+## Google Cloud Client Libraries
+
+[Available libraries](https://github.com/googleapis/google-cloud-python#google-cloud-python-client)
+
+```bash
+virtualenv g-api
+```
+```bash
+source g-api/bin/activate
+```
+
+### e.g., Google Cloud Storage
+
+```bash
+pip install --upgrade google-cloud-storage
+```
+```bash
+python
+```
+```bash
+from google.cloud import storage
+```
+```bash
+client = storage.Client()
+```
+
+### e.g., Google BigQuery
+
+```bash
+pip install --upgrade google-cloud-bigquery
+```
+```bash
+python
+```
+```bash
+from google.cloud import bigquery
+```
+```bash
+client = bigquery.Client()
+```
 
