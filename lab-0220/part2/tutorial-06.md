@@ -55,3 +55,6 @@ bq query --use_legacy_sql=false 'SELECT * FROM `{{project_id}}.dataset_ooo.table
 ```bash
 gcloud projects remove-iam-policy-binding  {{project_id}} --member serviceAccount:dlp-gcs-bq@{{project_id}}.iam.gserviceaccount.com --role roles/bigquery.admin
 ```
+```bash
+bq rm -r -d {{project_id}}:dataset_ooo
+```
