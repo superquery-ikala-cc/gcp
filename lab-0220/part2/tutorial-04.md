@@ -54,7 +54,7 @@ DATA
 gcloud compute firewall-rules delete cloud-fw-data-processor-rule
 ```
 ```bash
-gcloud compute instances delete data-processor --zone=asia-east1-a
+gcloud compute instances delete data-processor --zone=asia-northeast1-a
 ```
 ```bash
 gcloud iam service-accounts delete dlp-gcs-bq
