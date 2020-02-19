@@ -143,19 +143,19 @@ gcloud compute routes delete on-prem-vpn-gw-route
 gcloud compute vpn-tunnels delete on-prem-vpn-gw-tunnel --region=asia-east1
 ```
 ```bash
-gcloud compute forwarding-rules delete on-prem-vpn-gw-fr-udp4500
+gcloud compute forwarding-rules delete on-prem-vpn-gw-fr-udp4500 --region=asia-east1
 ```
 ```bash
-gcloud compute forwarding-rules delete on-prem-vpn-gw-fr-udp500
+gcloud compute forwarding-rules delete on-prem-vpn-gw-fr-udp500 --region=asia-east1
 ```
 ```bash
-gcloud compute forwarding-rules delete on-prem-vpn-gw-fr-esp
+gcloud compute forwarding-rules delete on-prem-vpn-gw-fr-esp --region=asia-east1
 ```
 ```bash
-gcloud compute target-vpn-gateways delete on-prem-vpn-gw
+gcloud compute target-vpn-gateways delete on-prem-vpn-gw --region=asia-east1
 ```
 ```bash
-gcloud compute addresses delete on-prem-vpn-gw-ip
+gcloud compute addresses delete on-prem-vpn-gw-ip --region=asia-east1
 ```
 
 ### Cloud
@@ -167,17 +167,17 @@ gcloud compute routes delete cloud-vpn-gw-route
 gcloud compute vpn-tunnels delete cloud-vpn-gw-tunnel --region=asia-northeast1
 ```
 ```bash
-gcloud compute forwarding-rules delete cloud-vpn-gw-fr-udp4500
+gcloud compute forwarding-rules delete cloud-vpn-gw-fr-udp4500 --region=asia-northeast1
 ```
 ```bash
-gcloud compute forwarding-rules delete cloud-vpn-gw-fr-udp500
+gcloud compute forwarding-rules delete cloud-vpn-gw-fr-udp500 --region=asia-northeast1
 ```
 ```bash
-gcloud compute forwarding-rules delete cloud-vpn-gw-fr-esp
+gcloud compute forwarding-rules delete cloud-vpn-gw-fr-esp --region=asia-northeast1
 ```
 ```bash
-gcloud compute target-vpn-gateways delete cloud-vpn-gw
+gcloud compute target-vpn-gateways delete cloud-vpn-gw --region=asia-northeast1
 ```
 ```bash
-gcloud compute addresses delete cloud-vpn-gw-ip
+gcloud compute addresses delete cloud-vpn-gw-ip --region=asia-northeast1
 ```
