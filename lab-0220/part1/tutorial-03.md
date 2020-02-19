@@ -39,6 +39,9 @@ resourcemanager = googleapiclient.discovery.build('cloudresourcemanager', 'v1')
 ```bash
 resourcemanager.projects().list().execute()
 ```
+```bash
+quit()
+```
 
 ## Google Cloud Client Libraries
 
@@ -65,6 +68,9 @@ from google.cloud import storage
 ```bash
 client = storage.Client()
 ```
+```bash
+quit()
+```
 
 ### e.g., Google BigQuery
 
@@ -79,5 +85,8 @@ from google.cloud import bigquery
 ```
 ```bash
 client = bigquery.Client()
+```
+```bash
+quit()
 ```
 
