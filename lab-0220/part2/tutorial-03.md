@@ -157,6 +157,9 @@ gcloud compute target-vpn-gateways delete on-prem-vpn-gw --region=asia-east1
 ```bash
 gcloud compute addresses delete on-prem-vpn-gw-ip --region=asia-east1
 ```
+```bash
+gcloud compute firewall-rules delete on-prem-fw-vpn-rule
+```
 
 ### Cloud
 
@@ -180,4 +183,7 @@ gcloud compute target-vpn-gateways delete cloud-vpn-gw --region=asia-northeast1
 ```
 ```bash
 gcloud compute addresses delete cloud-vpn-gw-ip --region=asia-northeast1
+```
+```bash
+gcloud compute firewall-rules delete cloud-fw-vpn-rule
 ```
