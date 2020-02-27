@@ -12,10 +12,10 @@ Credit to https://polleyg.dev/posts/bigquery-scheduler-cloud-build/
 # Questions
 
 Q1: cloud build timeout
-A1: 10 minutes (can increase)
+A1: timeout (https://cloud.google.com/cloud-build/docs/api/reference/rest/v1/projects.builds) , default 10 minutes (can increase)
 
 Q2: cloud scheduler timeout
-A2: ?
+A2: attempt_deadline (https://cloud.google.com/scheduler/docs/reference/rpc/google.cloud.scheduler.v1) , range 15 seconds and 30 minutes
 
 Q3: idempotent
 A3: ?
