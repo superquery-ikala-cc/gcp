@@ -37,7 +37,7 @@ gcloud projects add-iam-policy-binding {{project_id}} --member serviceAccount:dl
 SSH login VM data-processor, and then run following command: 
 
 ```
-bq --location=asia-northeast1 load --autodetect --source_format=CSV {{project_id}}:dataset_ooo.table_xyz_deid ~/table-xyz-20200101-deid.csv
+bq --location=asia-northeast1 load --autodetect --source_format=CSV --time_partitioning_type=DAY {{project_id}}:dataset_ooo.table_xyz_deid ~/table-xyz-20200101-deid.csv
 ```
 
 For more details, visit ([loading data from a local file](https://cloud.google.com/bigquery/docs/loading-data-local))

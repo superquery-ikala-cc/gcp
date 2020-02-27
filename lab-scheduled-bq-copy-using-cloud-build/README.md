@@ -5,8 +5,11 @@ Credit to https://polleyg.dev/posts/bigquery-scheduler-cloud-build/
 
 # Key settings
 
-1. service account used by cloud build     (of permission to call bigquery api)
-2. service account used by cloud scheduler (of permission to call cloud build api)
+1. cloud build service account `PROJECT_NUMBER@cloudbuild.gserviceaccount.com` of roles:
+  * `BigQuery Data Viewer` on `source dataset`
+  * `BigQuery Data Editor` on `destination dataset`
+  * `BigQuery Job User` on `billing project` (with requester pays consideration, use source dataset project)
+2. service account used by cloud scheduler job of permission to invoke cloud build api e.g., `GAE SERVICE ACCOUNT`
 3. trigger id
 
 # Questions
@@ -19,7 +22,6 @@ A2: attempt_deadline (https://cloud.google.com/scheduler/docs/reference/rpc/goog
 
 Q3: idempotent
 A3: ?
-
 
 # Tutorial
 
