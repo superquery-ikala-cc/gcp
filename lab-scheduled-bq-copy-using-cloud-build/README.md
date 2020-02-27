@@ -9,8 +9,15 @@ Credit to https://polleyg.dev/posts/bigquery-scheduler-cloud-build/
   * `BigQuery Data Viewer` on `source dataset`
   * `BigQuery Data Editor` on `destination dataset`
   * `BigQuery Job User` on `billing project` (with requester pays consideration, use source dataset project)
+  * `BigQuery Connect User` on `source project`
 2. service account used by cloud scheduler job of permission to invoke cloud build api e.g., `GAE SERVICE ACCOUNT`
 3. trigger id
+4. enable apis
+  * App Engine
+  * Cloud Scheduler
+  * Cloud Build
+  * Cloud Source Repository
+  * BigQuery
 
 # Questions
 
