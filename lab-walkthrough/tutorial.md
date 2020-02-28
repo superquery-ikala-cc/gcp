@@ -77,3 +77,63 @@ Click the [Create service][spotlight-create-service] button.
 
 <walkthrough-footnote>NOTE: inspect and find attribute instrumentation-id, but not works</walkthrough-footnote>
 <walkthrough-footnote>NOTE: inspect and find css class attribute, and it works</walkthrough-footnote>
+
+## Connect to the SQL instance
+
+The **gcloud** CLI is used to interface with the instance. This tool comes
+pre-installed in the web console shell.
+
+Open Cloud Shell by clicking
+<walkthrough-cloud-shell-icon></walkthrough-cloud-shell-icon>
+[icon][spotlight-open-devshell] in the navigation bar at the top of the
+console.
+
+[spotlight-open-devshell]: walkthrough://spotlight-pointer?spotlightId=devshell-activate-button
+
+Use this command to connect to the instance:
+
+```bash
+gcloud sql connect InstanceIdHere --user=root
+```
+
+You should see a prompt similar to the following:
+
+```terminal
+MySQL [(none)]
+```
+
+## Using the SQL instance
+
+Within the `MySQL` prompt, run the following:
+
+1.  Create database and table
+
+    ```sql
+    CREATE DATABASE geography;
+    USE geography;
+    CREATE TABLE cities (city VARCHAR(255), country VARCHAR(255));
+    ```
+
+1.  Insert data
+
+    ```sql
+    /* Insert dummy data into 'cities' table */
+    INSERT INTO cities (city, country) values ("San Francisco", "USA");
+    INSERT INTO cities (city, country) values ("Beijing", "China");
+    ```
+
+1.  Query
+
+    ```sql
+    SELECT * FROM cities;
+    ```
+
+    You should see the following query results:
+
+    ```terminal
+    SELECT * FROM cities;
+    +---------------+---------+
+
+    +---------------+---------+
+
+    +---------------+---------+
