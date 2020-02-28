@@ -78,7 +78,7 @@ Click the [Create service][spotlight-create-service] button.
 <walkthrough-footnote>NOTE: inspect and find attribute instrumentation-id, but not works</walkthrough-footnote>
 <walkthrough-footnote>NOTE: inspect and find css class attribute, and it works</walkthrough-footnote>
 
-## Connect to the SQL instance
+## Open Cloud Shell
 
 The **gcloud** CLI is used to interface with the instance. This tool comes
 pre-installed in the web console shell.
@@ -102,7 +102,7 @@ You should see a prompt similar to the following:
 MySQL [(none)]
 ```
 
-## Using the SQL instance
+## SQL
 
 Within the `MySQL` prompt, run the following:
 
@@ -137,3 +137,9 @@ Within the `MySQL` prompt, run the following:
     +---------------+---------+
 
     +---------------+---------+
+
+## Python
+
+```python
+import os
+```
