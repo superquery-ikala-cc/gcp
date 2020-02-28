@@ -1,9 +1,14 @@
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'gsutil'
+  entrypoint: 'bq'
   args:
-  - ls
-  - "gs://gcp-expert-sandbox-jim-cp-bq-table/$(date +%Y-%m-%d)"
+  - query
+  - --location=asia-east1
+  - --replace
+  - --destination_table
+  - gcp-expert-sandbox-jim:tw_dataset_dest.table_xyz
+  - --use_legacy_sql=false
+  - 'SELECT * FROM `gcp-expert-sandbox-jim`.tw_dataset_src.table_xyz'
 
   # Don't get hung up on this just about running BigQuery commands.
   # Because you're working with containers here, you can run *anything*

@@ -16,7 +16,7 @@ Click the **Start** button to move to the next step.
 
 <walkthrough-enable-apis apis="sourcerepo.googleapis.com,cloudbuild.googleapis.com,cloudscheduler.googleapis.com,bigquery.googleapis.com"></walkthrough-enable-apis>
 
-## Step 0
+## Grant Permissions
 
 授與 cloud build service acccount 有 BQ 權限
 
@@ -35,6 +35,14 @@ gcloud projects add-iam-policy-binding {{project_id}} --member serviceAccount:${
 ```
 
 選擇 cloud scheduler service account
+
+## Step 0
+
+建立一個 Cloud Storage Bucket
+
+```bash
+gsutil mb -b on -c standard -l asia-east1 -p {{project_id}} gs://{{project_id}}-cp-bq-table
+```
 
 ## Step 1
 
