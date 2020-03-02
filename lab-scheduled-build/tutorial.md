@@ -65,19 +65,23 @@ cd scheduled-build/select-1-job/ && git add -A && git commit -m "init" && git pu
 
 ## Create Trigger
 
+```bash
+gcloud beta builds triggers create cloud-source-repositories --repo="projects/{{project_id}}/repos/scheduled-build" --build-config="select-1-job/cloudbuild.yaml" --branch-pattern="^master$" --included-files="select-1-job/**" --description="select 1"
 ```
-gcloud beta builds triggers create cloud-source-repositories --repo="projects/{{project_id}}/repos/scheduled-build" --build-config="cloudbuild.yaml" --branch-pattern="^master$" --included-files="select-1-job/**" --description="select 1"
-```
+
+description content "select 1" => "select-1" for trigger name
+
+<walkthrough-footnote>NOTE: as result trigger name will be "select-1" derived from description</walkthrough-footnote>
 
 ## Disable Trigger
 
 ## Create Job
 
 ```bash
-trigger_id=$(gcloud beta builds triggers describe select-1-trigger --format='value(id)')
+trigger_id=$(gcloud beta builds triggers describe select-1 --format='value(id)')
 ```
 ```bash
-gcloud beta scheduler jobs create http scheduler-1 --schedule="*/5 * * * *" --uri=https://cloudbuild.googleapis.com/v1/projects/{{project_id}}/triggers/${trigger_id}:run --message-body='{"branchName":"master"}' --oauth-service-account-email={{project_id}}@appspot.gserviceaccount.com
+gcloud beta scheduler jobs create http select-1 --schedule="0 1 1 1 *" --uri=https://cloudbuild.googleapis.com/v1/projects/{{project_id}}/triggers/${trigger_id}:run --message-body='{"branchName":"master"}' --oauth-service-account-email={{project_id}}@appspot.gserviceaccount.com
 ```
 
 ## Clean Up
