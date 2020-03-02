@@ -1,5 +1,7 @@
 # Tutorial
 
+<walkthrough-watcher-constant key="job-name" value="select-1"></walkthrough-watcher-constant>
+
 ## Introduction
 
 <walkthrough-tutorial-duration duration="30"></walkthrough-tutorial-duration>
@@ -54,19 +56,19 @@ gcloud source repos create scheduled-build
 gcloud source repos clone scheduled-build
 ```
 ```bash
-mkdir scheduled-build/select-1-job
+mkdir scheduled-build/{{job-name}}-job
 ```
 ```bash
-cp cloudbuild.yaml scheduled-build/select-1-job/
+cp cloudbuild.yaml scheduled-build/{{job-name}}-job/
 ```
 ```bash
-cd scheduled-build/select-1-job/ && git add -A && git commit -m "init" && git push && cd -
+cd scheduled-build/{{job-name}}-job/ && git add -A && git commit -m "init" && git push && cd -
 ```
 
 ## Create Trigger
 
 ```bash
-gcloud beta builds triggers create cloud-source-repositories --repo="projects/{{project_id}}/repos/scheduled-build" --build-config="select-1-job/cloudbuild.yaml" --branch-pattern="^master$" --included-files="select-1-job/**" --description="select 1"
+gcloud beta builds triggers create cloud-source-repositories --repo="projects/{{project_id}}/repos/scheduled-build" --build-config="{{job-name}}-job/cloudbuild.yaml" --branch-pattern="^master$" --included-files="{{job-name}}-job/**" --description="select 1"
 ```
 
 description content "select 1" => "select-1" for trigger name
@@ -78,7 +80,7 @@ description content "select 1" => "select-1" for trigger name
 ## Create Job
 
 ```bash
-trigger_id=$(gcloud beta builds triggers describe select-1 --format='value(id)')
+trigger_id=$(gcloud beta builds triggers describe {{job-name}} --format='value(id)')
 ```
 ```bash
 gcloud beta scheduler jobs create http select-1 --schedule="0 1 1 1 *" --uri=https://cloudbuild.googleapis.com/v1/projects/{{project_id}}/triggers/${trigger_id}:run --message-body='{"branchName":"master"}' --oauth-service-account-email={{project_id}}@appspot.gserviceaccount.com
