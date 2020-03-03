@@ -160,7 +160,7 @@ gcloud compute routes create on-prem-route1 --destination-range 10.0.1.0/24 --ne
 gcloud compute routes create cloud-route1 --destination-range 192.168.1.0/24 --network cloud --next-hop-vpn-tunnel cloud-tunnel1 --next-hop-vpn-tunnel-region us-east1
 ```
 
-## Add More Tunnels
+## Add More Tunnels 2
 
 ### Gateway
 
@@ -210,6 +210,58 @@ gcloud compute routes create on-prem-route2 --destination-range 10.0.1.0/24 --ne
 
 ```bash
 gcloud compute routes create cloud-route2 --destination-range 192.168.1.0/24 --network cloud --next-hop-vpn-tunnel cloud-tunnel2 --next-hop-vpn-tunnel-region us-east1
+```
+
+## Add More Tunnels 3
+
+### Gateway
+
+```bash
+gcloud compute target-vpn-gateways create cloud-gw3 --network cloud --region us-east1
+```
+
+### IP Address
+
+```bash
+gcloud compute addresses create cloud-gw3 --region us-east1
+```
+
+```bash
+cloud_gw3_ip=$(gcloud compute addresses describe cloud-gw3 --region us-east1 --format='value(address)')
+```
+
+### Forwarding Rule
+
+```bash
+gcloud compute forwarding-rules create cloud-3-fr-esp --ip-protocol ESP --address $cloud_gw3_ip --target-vpn-gateway cloud-gw3 --region us-east1
+```
+
+```bash
+gcloud compute forwarding-rules create cloud-3-fr-udp500 --ip-protocol UDP --ports 500 --address $cloud_gw3_ip --target-vpn-gateway cloud-gw3 --region us-east1
+```
+
+```bash
+gcloud compute forwarding-rules create cloud-fr-3-udp4500 --ip-protocol UDP --ports 4500 --address $cloud_gw3_ip --target-vpn-gateway cloud-gw3 --region us-east1
+```
+
+### Tunnel
+
+```bash
+gcloud compute vpn-tunnels create on-prem-tunnel3 --peer-address $cloud_gw3_ip --target-vpn-gateway on-prem-gw1 --ike-version 2 --local-traffic-selector 0.0.0.0/0 --remote-traffic-selector 0.0.0.0/0 --shared-secret=sharedsecret3 --region us-central1
+```
+
+```bash
+gcloud compute vpn-tunnels create cloud-tunnel3 --peer-address $on_prem_gw_ip --target-vpn-gateway cloud-gw3 --ike-version 2 --local-traffic-selector 0.0.0.0/0 --remote-traffic-selector 0.0.0.0/0 --shared-secret=sharedsecret3 --region us-east1
+```
+
+### Route
+
+```bash
+gcloud compute routes create on-prem-route3 --destination-range 10.0.1.0/24 --network on-prem --next-hop-vpn-tunnel on-prem-tunnel3 --next-hop-vpn-tunnel-region us-central1
+```
+
+```bash
+gcloud compute routes create cloud-route3 --destination-range 192.168.1.0/24 --network cloud --next-hop-vpn-tunnel cloud-tunnel3 --next-hop-vpn-tunnel-region us-east1
 ```
 
 ## Create VMs
