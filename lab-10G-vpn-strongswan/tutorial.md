@@ -48,6 +48,10 @@ iperf -c 192.168.1.2 -P 40 -x C -p 5001 -t 60
 
 <walkthrough-footnote>NOTE: 192.168.1.2 is the on-prem-loadtest VM's internal IP address.</walkthrough-footnote>
 
+### Bottleneck
+
+On the on-prem-strongswan VM, single thread hardware interrupt (hi) 100%.
+
 ## Create VPC 1
 
 For Cloud
