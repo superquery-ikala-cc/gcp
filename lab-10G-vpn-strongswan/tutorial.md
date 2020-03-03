@@ -162,6 +162,36 @@ gcloud compute instances create "on-prem-strongswan" --zone "us-central1-a" --ma
 
 ## Strongswan
 
+```bash
+sudo apt-get update
+```
+
+```bash
+sudo apt-get install strongswan
+```
+
+### /etc/sysctl.conf
+
+```bash
+sudo cat >> /etc/sysctl.conf << EOF
+net.ipv4.ip_forward = 1
+EOF
+```
+
+```bash
+sudo sysctl -p /etc/sysctl.conf
+```
+
+### /etc/ipsec.secrets
+
+```terminal
+```
+
+### /etc/ipsec.conf
+
+```terminal
+```
+
 ## Clean Up
 
 ```bash
