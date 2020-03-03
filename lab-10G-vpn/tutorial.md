@@ -41,8 +41,10 @@ sudo apt-get install iperf
 ```
 
 ```bash
-iperf -c 192.168.1.2 -P 20 -x C -p 5001
+iperf -c 192.168.1.2 -P 20 -x C -p 5001 -t 30
 ```
+
+[iperf usage](http://manpages.ubuntu.com/manpages/xenial/man1/iperf.1.html)
 
 <walkthrough-footnote>NOTE: 192.168.1.2 is the on-prem-loadtest VM's internal IP address.</walkthrough-footnote>
 
@@ -262,6 +264,60 @@ gcloud compute routes create on-prem-route3 --destination-range 10.0.1.0/24 --ne
 
 ```bash
 gcloud compute routes create cloud-route3 --destination-range 192.168.1.0/24 --network cloud --next-hop-vpn-tunnel cloud-tunnel3 --next-hop-vpn-tunnel-region us-east1
+```
+
+## Add More Tunnels 4
+
+<walkthrough-watcher-constant key="tunnel-count" value="4"></walkthrough-watcher-constant>
+
+### Gateway
+
+```bash
+gcloud compute target-vpn-gateways create cloud-gw{{tunnel-count}} --network cloud --region us-east1
+```
+
+### IP Address
+
+```bash
+gcloud compute addresses create cloud-gw{{tunnel-count}} --region us-east1
+```
+
+```bash
+cloud_gw{{tunnel-count}}_ip=$(gcloud compute addresses describe cloud-gw{{tunnel-count}} --region us-east1 --format='value(address)')
+```
+
+### Forwarding Rule
+
+```bash
+gcloud compute forwarding-rules create cloud-{{tunnel-count}}-fr-esp --ip-protocol ESP --address $cloud_gw{{tunnel-count}}_ip --target-vpn-gateway cloud-gw{{tunnel-count}} --region us-east1
+```
+
+```bash
+gcloud compute forwarding-rules create cloud-{{tunnel-count}}-fr-udp500 --ip-protocol UDP --ports 500 --address $cloud_gw{{tunnel-count}}_ip --target-vpn-gateway cloud-gw{{tunnel-count}} --region us-east1
+```
+
+```bash
+gcloud compute forwarding-rules create cloud-fr-{{tunnel-count}}-udp4500 --ip-protocol UDP --ports 4500 --address $cloud_gw{{tunnel-count}}_ip --target-vpn-gateway cloud-gw{{tunnel-count}} --region us-east1
+```
+
+### Tunnel
+
+```bash
+gcloud compute vpn-tunnels create on-prem-tunnel{{tunnel-count}} --peer-address $cloud_gw{{tunnel-count}}_ip --target-vpn-gateway on-prem-gw1 --ike-version 2 --local-traffic-selector 0.0.0.0/0 --remote-traffic-selector 0.0.0.0/0 --shared-secret=sharedsecret{{tunnel-count}} --region us-central1
+```
+
+```bash
+gcloud compute vpn-tunnels create cloud-tunnel{{tunnel-count}} --peer-address $on_prem_gw_ip --target-vpn-gateway cloud-gw{{tunnel-count}} --ike-version 2 --local-traffic-selector 0.0.0.0/0 --remote-traffic-selector 0.0.0.0/0 --shared-secret=sharedsecret{{tunnel-count}} --region us-east1
+```
+
+### Route
+
+```bash
+gcloud compute routes create on-prem-route{{tunnel-count}} --destination-range 10.0.1.0/24 --network on-prem --next-hop-vpn-tunnel on-prem-tunnel{{tunnel-count}} --next-hop-vpn-tunnel-region us-central1
+```
+
+```bash
+gcloud compute routes create cloud-route{{tunnel-count}} --destination-range 192.168.1.0/24 --network cloud --next-hop-vpn-tunnel cloud-tunnel{{tunnel-count}} --next-hop-vpn-tunnel-region us-east1
 ```
 
 ## Create VMs
