@@ -44,9 +44,11 @@ sudo apt-get install iperf
 iperf -c 192.168.1.2 -P 20 -x C -p 5001
 ```
 
+<walkthrough-footnote>NOTE: 192.168.1.2 is the on-prem-loadtest VM's internal IP address.</walkthrough-footnote>
+
 ## Create VPC 1
 
-for Cloud
+For Cloud
 
 ```bash
 gcloud compute networks create cloud --subnet-mode custom
@@ -62,21 +64,21 @@ gcloud compute networks subnets create cloud-east --network cloud --range 10.0.1
 
 ## Create VPC 2
 
-for On-prem
+For On-prem
 
-```
+```bash
 gcloud compute networks create on-prem --subnet-mode custom
 ```
 
-```
+```bash
 gcloud compute firewall-rules create on-prem-fw --network on-prem --allow tcp:22,icmp
 ```
 
-```
+```bash
 gcloud compute networks subnets create on-prem-central --network on-prem --range 192.168.1.0/24 --region us-central1
 ```
 
-```
+```bash
 gcloud compute firewall-rules create on-prem-iperf-fw --network on-prem --allow tcp:5001
 ```
 
