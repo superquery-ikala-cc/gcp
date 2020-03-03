@@ -95,7 +95,7 @@ route-based VPN tunnel
 ### Gateway
 
 ```bash
-gcloud compute target-vpn-gateways create on-prem-gw1 --network on-prem --region us-central1
+gcloud compute target-vpn-gateways create cloud-gw1 --network cloud --region us-east1
 ```
 
 ### IP Address
@@ -173,9 +173,7 @@ sudo apt-get install strongswan
 ### /etc/sysctl.conf
 
 ```bash
-sudo cat >> /etc/sysctl.conf << EOF
-net.ipv4.ip_forward = 1
-EOF
+echo "net.ipv4.ip_forward = 1" | sudo tee -a /etc/sysctl.conf
 ```
 
 ```bash
@@ -190,6 +188,16 @@ sudo sysctl -p /etc/sysctl.conf
 ### /etc/ipsec.conf
 
 ```terminal
+```
+
+### Restart
+
+```bash
+sudo ipsec restart
+```
+
+```bash
+sudo ipsec up connection-name
 ```
 
 ## Clean Up
