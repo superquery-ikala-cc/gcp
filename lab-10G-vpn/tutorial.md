@@ -208,7 +208,7 @@ gcloud compute vpn-tunnels create cloud-tunnel2 --peer-address $on_prem_gw_ip --
 gcloud compute routes create on-prem-route2 --destination-range 10.0.1.0/24 --network on-prem --next-hop-vpn-tunnel on-prem-tunnel2 --next-hop-vpn-tunnel-region us-central1
 ```
 
-```
+```bash
 gcloud compute routes create cloud-route2 --destination-range 192.168.1.0/24 --network cloud --next-hop-vpn-tunnel cloud-tunnel2 --next-hop-vpn-tunnel-region us-east1
 ```
 
