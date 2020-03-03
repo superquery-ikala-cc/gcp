@@ -88,6 +88,10 @@ gcloud compute firewall-rules create on-prem-iperf-fw --network on-prem --allow 
 gcloud compute firewall-rules create on-prem-strongswan-fw --network on-prem --allow udp:500,udp:4500,esp --target-tags "strongswan"
 ```
 
+```bash
+gcloud compute firewall-rules create on-prem-internal-fw --network on-prem --allow all --source-ranges "192.168.1.0/24"
+```
+
 ## Create Tunnels
 
 route-based VPN tunnel
@@ -182,13 +186,39 @@ sudo sysctl -p /etc/sysctl.conf
 
 ### /etc/ipsec.secrets
 
-```terminal
+```bash
+echo "$cloud_gw1_ip : PSK \"sharedsecret\"" | sudo tee -a /etc/ipsec.secrets
 ```
 
 ### /etc/ipsec.conf
 
 ```terminal
+
+conn on-prem-to-cloud
+    authby=psk
+    auto=route
+    dpdaction=hold
+    ike=aes256-sha1-modp2048,aes256-sha256-modp2048,aes256-sha384-modp2048,aes256-sha512-modp2048!
+    esp=aes256-sha1-modp2048,aes256-sha256-modp2048,aes256-sha384-modp2048,aes256-sha512-modp2048!
+    forceencaps=yes
+    keyexchange=ikev2
+    mobike=no
+    type=tunnel
+    left=%any
+    leftid=35.232.63.67
+    leftsubnet=192.168.1.0/24
+    leftauth=psk
+    leftikeport=4500
+    right=34.74.2.191
+    rightsubnet=10.0.1.0/24
+    rightauth=psk
+    rightikeport=4500
 ```
+
+<walkthrough-footnote>NOTE: 10.0.1.0/24 cloud subnet CIDR</walkthrough-footnote>
+<walkthrough-footnote>NOTE: 192.168.1.0/24 on-prem subnet CIDR</walkthrough-footnote>
+<walkthrough-footnote>NOTE: 34.74.2.191 cloud gateway IP</walkthrough-footnote>
+<walkthrough-footnote>NOTE: 35.232.63.67 on-prem gateway IP</walkthrough-footnote>
 
 ### Restart
 
@@ -197,7 +227,11 @@ sudo ipsec restart
 ```
 
 ```bash
-sudo ipsec up connection-name
+sudo ipsec up on-prem-to-cloud
+```
+
+```bash
+sudo ipsec status
 ```
 
 ## Clean Up
