@@ -41,7 +41,7 @@ sudo apt-get install iperf
 ```
 
 ```bash
-iperf -c 192.168.1.2 -P 20 -x C -p 5001 -t 30
+iperf -c 192.168.1.2 -P 40 -x C -p 5001 -t 60
 ```
 
 [iperf usage](http://manpages.ubuntu.com/manpages/xenial/man1/iperf.1.html)
