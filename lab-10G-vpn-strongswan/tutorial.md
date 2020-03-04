@@ -56,11 +56,24 @@ To fix this issue visit [doc1](https://wiki.strongswan.org/projects/strongswan/w
 
 ```bash
 sudo modprobe pcrypt
+```
+```bash
 sudo modprobe tcrypt alg="pcrypt(authenc(hmac(sha256),cbc(aes)))" type=3
+```
+```bash
 sudo modprobe tcrypt alg="pcrypt(rfc4106(gcm(aes)))" type=3
+```
+```bash
 sudo modprobe tcrypt alg="pcrypt(authenc(hmac(sha1-ssse3),cbc-aes-aesni))" type=3
+```
+```bash
 sudo lsmod | grep crypt
+```
+```bash
 sudo cat /proc/crypto | grep pcrypt
+```
+```bash
+sudo ipsec restart
 ```
 
 ## Create VPC 1
