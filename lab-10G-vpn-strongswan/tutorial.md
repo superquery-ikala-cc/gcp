@@ -197,8 +197,7 @@ echo "$cloud_gw1_ip : PSK \"sharedsecret\"" | sudo tee -a /etc/ipsec.secrets
 ### /etc/ipsec.conf
 
 ```terminal
-
-conn on-prem-to-cloud
+conn %default
     authby=psk
     auto=route
     dpdaction=hold
@@ -208,15 +207,18 @@ conn on-prem-to-cloud
     keyexchange=ikev2
     mobike=no
     type=tunnel
+    leftauth=psk
+    leftikeport=4500
+    rightauth=psk
+    rightikeport=4500
+
+conn on-prem-to-cloud
     left=%any
     leftid=35.232.63.67
     leftsubnet=192.168.1.0/24
-    leftauth=psk
-    leftikeport=4500
     right=34.74.2.191
+    rightid=34.74.2.191
     rightsubnet=10.0.1.0/24
-    rightauth=psk
-    rightikeport=4500
 ```
 
 <walkthrough-footnote>NOTE: 10.0.1.0/24 cloud subnet CIDR</walkthrough-footnote>
@@ -295,24 +297,12 @@ echo "$cloud_gw{{tunnel-count}}_ip : PSK \"sharedsecret{{tunnel-count}}\"" | sud
 ```terminal
 
 conn on-prem-to-cloud{{tunnel-count}}
-    authby=psk
-    auto=route
-    dpdaction=hold
-    ike=aes256-sha1-modp2048,aes256-sha256-modp2048,aes256-sha384-modp2048,aes256-sha512-modp2048!
-    esp=aes256-sha1-modp2048,aes256-sha256-modp2048,aes256-sha384-modp2048,aes256-sha512-modp2048!
-    forceencaps=yes
-    keyexchange=ikev2
-    mobike=no
-    type=tunnel
     left=%any
     leftid=35.232.63.67
     leftsubnet=192.168.1.0/24
-    leftauth=psk
-    leftikeport=4500
     right=35.243.175.127
+    rightid=35.243.175.127
     rightsubnet=10.0.1.0/24
-    rightauth=psk
-    rightikeport=4500
 ```
 
 <walkthrough-footnote>NOTE: 10.0.1.0/24 cloud subnet CIDR</walkthrough-footnote>

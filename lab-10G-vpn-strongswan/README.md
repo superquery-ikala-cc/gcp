@@ -3,9 +3,10 @@
 
 Credit to 
 
-* https://sysadmins.co.za/setup-a-site-to-site-ipsec-vpn-with-strongswan-on-ubuntu/
 * https://blog.gcp.expert/google-cloud-vpn/
+* https://sysadmins.co.za/setup-a-site-to-site-ipsec-vpn-with-strongswan-on-ubuntu/
 * https://cloud.google.com/community/tutorials/using-cloud-vpn-with-strongswan
+* https://www.edge-cloud.net/2019/07/18/aws-site-2-site-vpn-with-strongswan-frrouting/
 
 # Tutorial
 
