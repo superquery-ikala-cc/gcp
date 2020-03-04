@@ -19,7 +19,7 @@ Click the **Start** button to move to the next step.
 ## Create A Bucket
 
 ```bash
-gsutil mb -p {{project_id}} -c STANDARD -l asia-northeast1 -b on gs://{{project_id}}-bucket/
+gsutil mb -p {{project_id}} -c ARCHIVE -l asia-northeast1 -b on gs://{{project_id}}-bucket/
 ```
 
 For more details, visit ([creating storage buckets](https://cloud.google.com/storage/docs/creating-buckets#storage-create-bucket-gsutil))
