@@ -191,7 +191,7 @@ sudo sysctl -p /etc/sysctl.conf
 ### /etc/ipsec.secrets
 
 ```bash
-echo "$cloud_gw1_ip : PSK \"sharedsecret\"" | sudo tee -a /etc/ipsec.secrets
+echo "$on_prem_gw_ip $cloud_gw1_ip : PSK \"sharedsecret\"" | sudo tee -a /etc/ipsec.secrets
 ```
 
 ### /etc/ipsec.conf
@@ -289,7 +289,7 @@ gcloud compute routes create cloud-route{{tunnel-count}} --destination-range 192
 ### /etc/ipsec.secrets
 
 ```bash
-echo "$cloud_gw{{tunnel-count}}_ip : PSK \"sharedsecret{{tunnel-count}}\"" | sudo tee -a /etc/ipsec.secrets
+echo "$on_prem_gw_ip $cloud_gw{{tunnel-count}}_ip : PSK \"sharedsecret{{tunnel-count}}\"" | sudo tee -a /etc/ipsec.secrets
 ```
 
 ### /etc/ipsec.conf
