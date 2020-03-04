@@ -50,7 +50,7 @@ iperf -c 192.168.1.2 -P 40 -x C -p 5001 -t 60
 
 ### Bottleneck
 
-On the on-prem-strongswan VM, single thread hardware interrupt (hi) 100%.
+On the on-prem-strongswan VM, single thread hardware interrupt (hi or si) 100%.
 
 ## Create VPC 1
 
@@ -467,6 +467,12 @@ sudo ipsec up on-prem-to-cloud{{tunnel-count}}
 ```bash
 sudo ipsec status
 ```
+
+### Repeat 
+
+Benchmark result shows that adding 1 pair gateways (cloud,on-prem) increases throughput of 1G.
+
+So we need repeat above steps for 10 pairs.
 
 ## Clean Up
 
