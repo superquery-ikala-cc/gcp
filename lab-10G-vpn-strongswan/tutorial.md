@@ -52,6 +52,17 @@ iperf -c 192.168.1.2 -P 40 -x C -p 5001 -t 60
 
 On the on-prem-strongswan VM, single thread software interrupt (si) 100%.
 
+To fix this issue visit [doc1](https://wiki.strongswan.org/projects/strongswan/wiki/Pcrypt) and [doc2](https://wiki.strongswan.org/issues/2294)
+
+```bash
+sudo modprobe pcrypt
+sudo modprobe tcrypt alg="pcrypt(authenc(hmac(sha256),cbc(aes)))" type=3
+sudo modprobe tcrypt alg="pcrypt(rfc4106(gcm(aes)))" type=3
+sudo modprobe tcrypt alg="pcrypt(authenc(hmac(sha1-ssse3),cbc-aes-aesni))" type=3
+sudo lsmod | grep crypt
+sudo cat /proc/crypto | grep pcrypt
+```
+
 ## Create VPC 1
 
 For Cloud
