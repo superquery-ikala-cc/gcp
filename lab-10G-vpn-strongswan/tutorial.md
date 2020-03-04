@@ -50,7 +50,7 @@ iperf -c 192.168.1.2 -P 40 -x C -p 5001 -t 60
 
 ### Bottleneck
 
-On the on-prem-strongswan VM, single thread hardware interrupt (hi or si) 100%.
+On the on-prem-strongswan VM, single thread software interrupt (si) 100%.
 
 ## Create VPC 1
 
