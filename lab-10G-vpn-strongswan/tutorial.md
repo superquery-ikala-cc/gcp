@@ -240,7 +240,7 @@ sudo ipsec up on-prem-to-cloud
 sudo ipsec status
 ```
 
-## Add More Tunnels 2
+## Add More Tunnels 2a
 
 <walkthrough-watcher-constant key="tunnel-count" value="2"></walkthrough-watcher-constant>
 
@@ -331,6 +331,142 @@ sudo ipsec status
 ### Problem
 
 VPN tunnel status ok but routing issue occurs between cloud-loadtest and on-prem-loadtest
+
+## Add More Tunnels 2b
+
+<walkthrough-watcher-constant key="tunnel-count" value="2"></walkthrough-watcher-constant>
+
+### Gateway
+
+```bash
+gcloud compute target-vpn-gateways create cloud-gw{{tunnel-count}} --network cloud --region us-east1
+```
+
+### IP Address
+
+```bash
+gcloud compute addresses create cloud-gw{{tunnel-count}} --region us-east1
+```
+
+```bash
+gcloud compute addresses create on-prem-gw{{tunnel-count}} --region us-central1
+```
+
+```bash
+cloud_gw{{tunnel-count}}_ip=$(gcloud compute addresses describe cloud-gw{{tunnel-count}} --region us-east1 --format='value(address)')
+```
+
+```bash
+on_prem_gw{{tunnel-count}}_ip=$(gcloud compute addresses describe on-prem-gw{{tunnel-count}} --region us-central1 --format='value(address)')
+```
+
+### Forwarding Rule
+
+```bash
+gcloud compute forwarding-rules create cloud-{{tunnel-count}}-fr-esp --ip-protocol ESP --address $cloud_gw{{tunnel-count}}_ip --target-vpn-gateway cloud-gw{{tunnel-count}} --region us-east1
+```
+
+```bash
+gcloud compute forwarding-rules create cloud-{{tunnel-count}}-fr-udp500 --ip-protocol UDP --ports 500 --address $cloud_gw{{tunnel-count}}_ip --target-vpn-gateway cloud-gw{{tunnel-count}} --region us-east1
+```
+
+```bash
+gcloud compute forwarding-rules create cloud-fr-{{tunnel-count}}-udp4500 --ip-protocol UDP --ports 4500 --address $cloud_gw{{tunnel-count}}_ip --target-vpn-gateway cloud-gw{{tunnel-count}} --region us-east1
+```
+
+### Tunnel
+
+```bash
+gcloud compute vpn-tunnels create cloud-tunnel{{tunnel-count}} --peer-address $on_prem_gw{{tunnel-count}}_ip --target-vpn-gateway cloud-gw{{tunnel-count}} --ike-version 2 --local-traffic-selector 0.0.0.0/0 --remote-traffic-selector 0.0.0.0/0 --shared-secret=sharedsecret{{tunnel-count}} --region us-east1
+```
+
+### Route
+
+```bash
+gcloud compute routes create on-prem-route{{tunnel-count}} --destination-range 10.0.1.0/24 --network on-prem --next-hop-instance on-prem-strongswan{{tunnel-count}} --next-hop-instance-zone us-central1-a
+```
+
+```bash
+gcloud compute routes create cloud-route{{tunnel-count}} --destination-range 192.168.1.0/24 --network cloud --next-hop-vpn-tunnel cloud-tunnel{{tunnel-count}} --next-hop-vpn-tunnel-region us-east1
+```
+
+### VM
+
+```bash
+gcloud compute instances create "on-prem-strongswan{{tunnel-count}}" --zone "us-central1-a" --machine-type "n1-standard-4" --subnet "on-prem-central" --image-family "debian-9" --image-project "debian-cloud" --boot-disk-size "10" --boot-disk-type "pd-standard" --boot-disk-device-name "on-prem-strongswan{{tunnel-count}}" --address $on_prem_gw{{tunnel-count}}_ip --can-ip-forward --tags strongswan
+```
+
+### Strongswan{{tunnel-count}}
+
+```bash
+sudo apt-get update
+```
+
+```bash
+sudo apt-get install strongswan
+```
+
+### /etc/sysctl.conf
+
+```bash
+echo "net.ipv4.ip_forward = 1" | sudo tee -a /etc/sysctl.conf
+```
+
+```bash
+sudo sysctl -p /etc/sysctl.conf
+```
+
+### /etc/ipsec.secrets
+
+```bash
+echo "$on_prem_gw{{tunnel-count}}_ip $cloud_gw{{tunnel-count}}_ip : PSK \"sharedsecret{{tunnel-count}}\"" | sudo tee -a /etc/ipsec.secrets
+```
+
+### /etc/ipsec.conf
+
+```terminal
+conn %default
+    authby=psk
+    auto=route
+    dpdaction=hold
+    ike=aes256-sha1-modp2048,aes256-sha256-modp2048,aes256-sha384-modp2048,aes256-sha512-modp2048!
+    esp=aes256-sha1-modp2048,aes256-sha256-modp2048,aes256-sha384-modp2048,aes256-sha512-modp2048!
+    forceencaps=yes
+    keyexchange=ikev2
+    mobike=no
+    type=tunnel
+    leftauth=psk
+    leftikeport=4500
+    rightauth=psk
+    rightikeport=4500
+
+conn on-prem-to-cloud{{tunnel-count}}
+    left=%any
+    leftid=35.188.211.5
+    leftsubnet=192.168.1.0/24
+    right=35.243.175.127
+    rightid=35.243.175.127
+    rightsubnet=10.0.1.0/24
+```
+
+<walkthrough-footnote>NOTE: 10.0.1.0/24 cloud subnet CIDR</walkthrough-footnote>
+<walkthrough-footnote>NOTE: 192.168.1.0/24 on-prem subnet CIDR</walkthrough-footnote>
+<walkthrough-footnote>NOTE: 35.243.175.127 cloud gateway IP</walkthrough-footnote>
+<walkthrough-footnote>NOTE: 35.188.211.5 on-prem gateway IP</walkthrough-footnote>
+
+### Restart
+
+```bash
+sudo ipsec restart
+```
+
+```bash
+sudo ipsec up on-prem-to-cloud{{tunnel-count}}
+```
+
+```bash
+sudo ipsec status
+```
 
 ## Clean Up
 
