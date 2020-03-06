@@ -23,10 +23,135 @@ Click the **Start** button to move to the next step.
 n/a
 
 ## Create VPC
+
+### On-Prem
+
+```bash
+gcloud compute networks create on-prem-net --subnet-mode custom
+```
+```bash
+gcloud compute networks subnets create on-prem-subnet --network on-prem-net --range 192.168.101.0/24 --region asia-east1
+```
+```bash
+gcloud compute firewall-rules create on-prem-fw --network on-prem-net --allow tcp:22,icmp
+```
+
+### Transitive
+
+```bash
+gcloud comptue networks create transitive-net --subnet-mode custom
+```
+```bash
+gcloud compute networks subnets create transitive-subnet --network transitive-net --range 192.168.102.0/24 --region asia-east1
+```
+```bash
+gcloud compute firewall-rules create transitive-fw --network transitive-net --allow tcp:22,icmp
+```
+
+### Peered
+
+```bash
+gcloud compute networks create peered-net --subnet-mode custom
+```
+```bash
+gcloud compute networks subnets create peered-subnet --network peered-net --range 192.168.103.0/24 --region asia-east1
+```
+```bash
+gcloud compute firewall-rules create peered-fw --network peered-net --allow tcp:22,icmp
+```
+
 ## Create VPC Peering
+
+```bash
+gcloud compute networks peerings create peering-name --auto-create-routes --network=transitive-net --peer-project {{project-id}} --peer-network peered-net
+```
+
 ## Create VPN
+
+### IP
+
+```bash
+gcloud compute addresses on-prem-vpn-gw --region asia-east1
+```
+```bash
+gcloud compute addresses transitive-vpn-gw --region asia-east1
+```
+```bash
+on_prem_vpn_gw_ip=$(gcloud compute addresses describe on-prem-vpn-gw --region asia-east1 --format='value(address)')
+```
+```bash
+transitive_vpn_gw_ip=$(gcloud compute addresses describe transitive-vpn-gw --region asia-east1 --format='value(address)')
+```
+
+### Gateway
+
+```bash
+gcloud compute target-vpn-gateways create on-prem-vpn-gw --network on-prem-net --region asia-east1
+```
+```bash
+gcloud compute target-vpn-gateways create transitive-vpn-gw --network transitive-net --region asia-east1
+```
+
+### Forwarding Rule
+
+```bash
+gcloud compute forwarding-rules create on-prem-fr-esp --ip-protocol ESP --address $on_prem_vpn_gw_ip --target-vpn-gateway on-prem-vpn-gw --region asia-east1
+```
+```bash
+gcloud compute forwarding-rules create on-prem-fr-udp500 --ip-protocol UDP --ports 500 --address $on_prem_vpn_gw_ip --target-vpn-gateway on-prem-vpn-gw --region asia-east1
+```
+```bash
+gcloud compute forwarding-rules create on-prem-fr-udp4500 --ip-protocol UDP --ports 4500 --address $on_prem_vpn_gw_ip --target-vpn-gateway on-prem-vpn-gw --region asia-east1
+```
+```bash
+gcloud compute forwarding-rules create transitive-fr-esp --ip-protocol ESP --address $transitive_vpn_gw_ip --target-vpn-gateway transitive-vpn-gw --region asia-east1
+```
+```bash
+gcloud compute forwarding-rules create transitive-fr-udp500 --ip-protocol UDP --ports 500 --address $transitive_vpn_gw_ip --target-vpn-gateway transitive-vpn-gw --region asia-east1
+```
+```bash
+gcloud compute forwarding-rules create transitive-fr-udp4500 --ip-protocol UDP --ports 4500 --address $transitive_vpn_gw_ip --target-vpn-gateway transitive-vpn-gw --region asia-east1
+```
+
+### Tunnel
+
+```bash
+gcloud compute vpn-tunnels create on-prem-tunnel --peer-address $transitive_vpn_gw_ip --target-vpn-gateway on-prem-vpn-gw --ike-version 2 --local-traffic-selector 192.168.101.0/24 --remote-traffic-selector 192.168.102.0/24 --shared-secret=sharedsecret --region asia-east1
+```
+```bash
+gcloud compute vpn-tunnels create transitive-tunnel --peer-address $on_prem_vpn_gw_ip --target-vpn-gateway transitive-vpn-gw --ike-version 2 --local-traffic-selector 192.168.102.0/24 --remote-traffic-selector 192.168.101.0/24 --shared-secret=sharedsecret --region asia-east1
+```
+
+### Route
+
+```bash
+gcloud compute routes create on-prem-route-to-transitive --destination-range 192.168.102.0/24 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
+```
+```bash
+gcloud compute routes create transitive-route-to-on-prem --destination-range 192.168.101.0/24 --network transitive-net --next-hop-vpn-tunnel transitive-tunnel --next-hop-vpn-tunnel-region asia-east1
+```
+
+## Create VM
+
+```bash
+gcloud compute instances create "on-prem-vm" --zone "asia-east1-a" --subnet "on-prem-subnet"
+```
+```bash
+gcloud compute instances create "on-prem-vm" --zone "asia-east1-a" --subnet "transitive-subnet"
+```
+```bash
+gcloud compute instances create "on-prem-vm" --zone "asia-east1-a" --subnet "peered-subnet"
+```
+
 ## Export Custom Route
-## Verify
+
+```bash
+gcloud compute routes create on-prem-route-to-peered --destination-range 192.168.103.0/24 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
+```
+```bash
+gcloud compute networks peerings update peering-name --network=transitive-network --export-custom-routes
+```
+
 ## Clean Up
 
 ```bash
