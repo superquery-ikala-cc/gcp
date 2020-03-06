@@ -23,10 +23,10 @@ Click the **Start** button to move to the next step.
 n/a
 
 ## Create VPC
-## Create VPN
 ## Create VPC Peering
+## Create VPN
 ## Export Custom Route
-
+## Verify
 ## Clean Up
 
 ```bash

@@ -11,4 +11,6 @@ Credit to n/a
 
 * https://cloud.google.com/vpc/docs/vpc-peering#transit-network
 * https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters#master-on-prem-routing
-* https://cloud.google.com/sql/docs/mysql/configure-private-ip#vpn 
+* https://cloud.google.com/sql/docs/mysql/configure-private-ip#vpn
+* https://cloud.google.com/memorystore/docs/redis/networking#on-prem_access_with_private_services_access
+* https://cloud.google.com/vpc/docs/configure-private-services-access#on-prem
