@@ -222,7 +222,7 @@ gcloud redis instances create private-memorystore-00 --connect-mode private_serv
 gcloud compute routes create on-prem-route-to-privateservices --destination-range 192.168.0.0/20 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
 ```
 ```bash
-gcloud compute networks peerings update servicenetworking-googleapis-com  --network=transitive-net --export-custom-routes
+gcloud compute networks peerings update servicenetworking-googleapis-com --network=transitive-net --export-custom-routes
 ```
 
 ### Verify
@@ -236,6 +236,58 @@ gcloud compute networks peerings update servicenetworking-googleapis-com  --netw
 TODO: need another private serivce connection
 
 ## Private Kubernetes
+
+```bash
+gcloud compute networks subnets create transitive-subnet-gke --network transitive-net --region asia-east1 --range 192.168.16.0/20 --secondary-range pod-ip-range=192.168.32.0/20,svc-ip-range=192.168.48.0/20 --enable-private-ip-google-access
+```
+
+<walkthrough-footnote>NOTE: common mask for pod-ip-range is 14 bits</walkthrough-footnote>
+
+```bash
+gcloud container clusters create private-gke-00 --zone asia-east1-a --network transitive-net --subnet transitive-subnet-gke --cluster-secondary-range-name pod-ip-range --services-secondary-range-name svc-ip-range --enable-private-nodes --enable-ip-alias --master-ipv4-cidr 192.168.201.0/28 --enable-private-endpoint --enable-master-authorized-networks
+```
+
+At this point, these are the only IP addresses that have access to the cluster master:
+
+* The primary range of transitive-subnet-gke. (192.168.16.0/20)
+* The secondary range used for Pods. (192.168.32.0/20)
+
+### Exchange Custom Route
+
+```bash
+gcloud compute routes create on-prem-route-to-privategkemaster --destination-range 192.168.201.0/28 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
+```
+```bash
+gke_peering=$(gcloud container clusters describe private-gke-00 --format='value(peeringName)')
+```
+```bash
+gcloud compute networks peerings update $gke_peering --network=transitive-net --export-custom-routes
+```
+
+### Authorized Network
+
+```bash
+TODO allow transitive-subnet
+```
+```bash
+TODO allow on-prem-subnet
+```
+```bash
+TODO allow cloud-shell-ip (No way because public endpoint is disabled)
+```
+
+At this point, these are the only IP addresses that have access to the cluster master:
+
+* The primary range of transitive-subnet-gke. (192.168.16.0/20)
+* The secondary range used for Pods. (192.168.32.0/20)
+* transitive-subnet (192.168.101.0/24)
+* on-prem-subnet (192.168.102.0/24)
+
+### Verify
+
+* VM transitive-vm - - kubectl - -> private-gke-00 [o]
+* VM on-prem-vm - - kubectl - -> private-gke-00 [o]
+* VM peered-vm - - kubectl - -> private-memorystore-00 [x]
 
 ## Clean Up
 
