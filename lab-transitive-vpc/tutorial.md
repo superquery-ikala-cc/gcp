@@ -170,7 +170,7 @@ VM on-prem-vm - - ping - -> peered-vm
 ### IP Range
 
 ```bash
-gcloud compute addresses create transitive-ip-ranges-for-private-services --global --purpose=VPC_PEERING --addresses=192.168.100.0 --prefix-length=24 --network=transitive-net
+gcloud compute addresses create transitive-ip-ranges-for-private-services --global --purpose=VPC_PEERING --addresses=192.168.0.0 --prefix-length=20 --network=transitive-net
 ```
 
 ### Connection
@@ -178,6 +178,14 @@ gcloud compute addresses create transitive-ip-ranges-for-private-services --glob
 ```bash
 gcloud services vpc-peerings connect --service=servicenetworking.googleapis.com --ranges=transitive-ip-ranges-for-private-services --network=transitive-net
 ```
+
+As result, two connections and two peerings will be created:
+* connection name
+  * cloudsql-mysql-googleapis-com
+  * servicenetworking-googleapis-com
+* peering name
+  * cloudsql-mysql-googleapis-com
+  * servicenetworking-googleapis-com
 
 ## Private CloudSQL
 
@@ -188,7 +196,7 @@ gcloud beta sql instances create private-cloudsql-00 --network transitive-net
 ### Exchange Custom Route
 
 ```bash
-gcloud compute routes create on-prem-route-to-privateservices --destination-range 192.168.100.0/24 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
+gcloud compute routes create on-prem-route-to-privateservices --destination-range 192.168.0.0/20 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
 ```
 ```bash
 gcloud compute networks peerings update cloudsql-mysql-googleapis-com --network=transitive-net --export-custom-routes
@@ -203,18 +211,18 @@ gcloud compute networks peerings update cloudsql-mysql-googleapis-com --network=
 ## Private MemoryStore
 
 ```bash
-gcloud redis instances create private-memorystore-00 --connect-mode private_service_access --network transitive-net --region us-central1
+gcloud redis instances create private-memorystore-00 --connect-mode private_service_access --network transitive-net --region asia-east1
 ```
 
-ERROR: The IP ranges for the connection do not have enough available IPs. Allocate a new range or expand existing range and try again.
+<walkthrough-footnote>NOTE: must be in the same region as the VM</walkthrough-footnote>
 
 ### Exchange Custom Route
 
 ```bash
-gcloud compute routes create on-prem-route-to-privateservices --destination-range 192.168.100.0/24 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
+gcloud compute routes create on-prem-route-to-privateservices --destination-range 192.168.0.0/20 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
 ```
 ```bash
-gcloud compute networks peerings update cloudsql-mysql-googleapis-com --network=transitive-net --export-custom-routes
+gcloud compute networks peerings update servicenetworking-googleapis-com  --network=transitive-net --export-custom-routes
 ```
 
 ### Verify
