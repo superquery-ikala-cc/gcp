@@ -39,7 +39,7 @@ gcloud compute firewall-rules create on-prem-fw --network on-prem-net --allow tc
 ### Transitive
 
 ```bash
-gcloud comptue networks create transitive-net --subnet-mode custom
+gcloud compute networks create transitive-net --subnet-mode custom
 ```
 ```bash
 gcloud compute networks subnets create transitive-subnet --network transitive-net --range 192.168.102.0/24 --region asia-east1
@@ -60,21 +60,25 @@ gcloud compute networks subnets create peered-subnet --network peered-net --rang
 gcloud compute firewall-rules create peered-fw --network peered-net --allow tcp:22,icmp
 ```
 
-## Create VPC Peering
+## Create Peering
 
 ```bash
-gcloud compute networks peerings create peering-name --auto-create-routes --network=transitive-net --peer-project {{project-id}} --peer-network peered-net
+gcloud compute networks peerings create peer-transitive-to-peered --auto-create-routes --network=transitive-net --peer-project {{project-id}} --peer-network peered-net
 ```
+```bash
+gcloud compute networks peerings create peer-peered-to-transitive --auto-create-routes --network=peered-net --peer-project {{project-id}} --peer-network transitive-net
+```
+
 
 ## Create VPN
 
 ### IP
 
 ```bash
-gcloud compute addresses on-prem-vpn-gw --region asia-east1
+gcloud compute addresses create on-prem-vpn-gw --region asia-east1
 ```
 ```bash
-gcloud compute addresses transitive-vpn-gw --region asia-east1
+gcloud compute addresses create transitive-vpn-gw --region asia-east1
 ```
 ```bash
 on_prem_vpn_gw_ip=$(gcloud compute addresses describe on-prem-vpn-gw --region asia-east1 --format='value(address)')
@@ -137,19 +141,22 @@ gcloud compute routes create transitive-route-to-on-prem --destination-range 192
 gcloud compute instances create "on-prem-vm" --zone "asia-east1-a" --subnet "on-prem-subnet"
 ```
 ```bash
-gcloud compute instances create "on-prem-vm" --zone "asia-east1-a" --subnet "transitive-subnet"
+gcloud compute instances create "transitive-vm" --zone "asia-east1-a" --subnet "transitive-subnet"
 ```
 ```bash
-gcloud compute instances create "on-prem-vm" --zone "asia-east1-a" --subnet "peered-subnet"
+gcloud compute instances create "peered-vm" --zone "asia-east1-a" --subnet "peered-subnet"
 ```
 
-## Export Custom Route
+## Exchange Custom Route
 
 ```bash
 gcloud compute routes create on-prem-route-to-peered --destination-range 192.168.103.0/24 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
 ```
 ```bash
-gcloud compute networks peerings update peering-name --network=transitive-network --export-custom-routes
+gcloud compute networks peerings update peer-transitive-to-peered --network=transitive-net --export-custom-routes
+```
+```bash
+gcloud compute networks peerings update peer-peered-to-transitive --network=peered-net --import-custom-routes
 ```
 
 ## Clean Up
