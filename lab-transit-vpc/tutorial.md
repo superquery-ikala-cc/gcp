@@ -285,6 +285,14 @@ At this point, these are the only IP addresses that have access to the cluster m
 * VM on-prem-vm - - kubectl - -> private-gke-00 [o]
 * VM peered-vm - - kubectl - -> private-memorystore-00 [x]
 
+### Optional
+
+Let on-prem-vm can access pods
+
+```bash
+gcloud compute routes create on-prem-route-to-privategkepod --destination-range 192.168.32.0/20 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
+```
+
 ## Clean Up
 
 ```bash
