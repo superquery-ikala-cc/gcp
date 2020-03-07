@@ -188,7 +188,6 @@ gcloud beta sql instances create private-cloudsql-00 --network transitive-net
 ### Exchange Custom Route
 
 ```bash
-
 gcloud compute routes create on-prem-route-to-privateservices --destination-range 192.168.100.0/24 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
 ```
 ```bash
@@ -202,6 +201,20 @@ gcloud compute networks peerings update cloudsql-mysql-googleapis-com --network=
 * VM peered-vm - - 3306 - -> private-cloudsql-00 [x]
 
 ## Private MemoryStore
+
+```bash
+gcloud redis instances create private-memorystore-00 --connect-mode private_service_access --network transitive-net --region us-central1
+```
+
+ERROR: The IP ranges for the connection do not have enough available IPs. Allocate a new range or expand existing range and try again.
+
+### Exchange Custom Route
+
+### Verify
+
+* VM transitive-vm - - 6379 - -> private-memorystore-00 [o]
+* VM on-prem-vm - - 6379 - -> private-memorystore-00 [o]
+* VM peered-vm - - 6379 - -> private-memorystore-00 [x]
 
 ## Private NetApp
 
