@@ -244,7 +244,7 @@ gcloud compute networks subnets create transitive-subnet-gke --network transitiv
 <walkthrough-footnote>NOTE: common mask for pod-ip-range is 14 bits</walkthrough-footnote>
 
 ```bash
-gcloud container clusters create private-gke-00 --zone asia-east1-a --network transitive-net --subnet transitive-subnet-gke --cluster-secondary-range-name pod-ip-range --services-secondary-range-name svc-ip-range --enable-private-nodes --enable-ip-alias --master-ipv4-cidr 192.168.201.0/28 --enable-private-endpoint --enable-master-authorized-networks
+gcloud container clusters create private-gke-00 --zone asia-east1-a --network transitive-net --subnetwork transitive-subnet-gke --cluster-secondary-range-name pod-ip-range --services-secondary-range-name svc-ip-range --enable-private-nodes --enable-ip-alias --master-ipv4-cidr 192.168.201.0/28 --enable-private-endpoint --enable-master-authorized-networks
 ```
 
 At this point, these are the only IP addresses that have access to the cluster master:
@@ -258,7 +258,7 @@ At this point, these are the only IP addresses that have access to the cluster m
 gcloud compute routes create on-prem-route-to-privategkemaster --destination-range 192.168.201.0/28 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
 ```
 ```bash
-gke_peering=$(gcloud container clusters describe private-gke-00 --format='value(peeringName)')
+gke_peering=$(gcloud container clusters describe private-gke-00 --zone asia-east1-a --format='value(privateClusterConfig.peeringName)')
 ```
 ```bash
 gcloud compute networks peerings update $gke_peering --network=transitive-net --export-custom-routes
@@ -267,21 +267,17 @@ gcloud compute networks peerings update $gke_peering --network=transitive-net --
 ### Authorized Network
 
 ```bash
-TODO allow transitive-subnet
-```
-```bash
-TODO allow on-prem-subnet
-```
-```bash
-TODO allow cloud-shell-ip (No way because public endpoint is disabled)
+gcloud container clusters update private-gke-00 --zone asia-east1-a --enable-master-authorized-networks --master-authorized-networks 192.168.101.0/24,192.168.102.0/24
 ```
 
 At this point, these are the only IP addresses that have access to the cluster master:
 
 * The primary range of transitive-subnet-gke. (192.168.16.0/20)
 * The secondary range used for Pods. (192.168.32.0/20)
-* transitive-subnet (192.168.101.0/24)
-* on-prem-subnet (192.168.102.0/24)
+* on-prem-subnet (192.168.101.0/24)
+* transitive-subnet (192.168.102.0/24)
+
+<walkthrough-footnote>NOTE: no way to allow cloud shell because public endpoint is disabled.</walkthrough-footnote>
 
 ### Verify
 
