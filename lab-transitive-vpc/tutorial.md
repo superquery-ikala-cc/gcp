@@ -16,7 +16,7 @@ Click the **Start** button to move to the next step.
 
 ## Enable APIs
 
-<walkthrough-enable-apis apis="compute.googleapis.com"></walkthrough-enable-apis>
+<walkthrough-enable-apis apis="compute.googleapis.com,servicenetworking.googleapis.com,sql-component.googleapis.com,sqladmin.googleapis.com,redis.googleapis.com,container.googleapis.com"></walkthrough-enable-apis>
 
 ## Grant Permissions
 
@@ -158,6 +158,56 @@ gcloud compute networks peerings update peer-transitive-to-peered --network=tran
 ```bash
 gcloud compute networks peerings update peer-peered-to-transitive --network=peered-net --import-custom-routes
 ```
+
+## Verify
+
+VM on-prem-vm - - ping - -> peered-vm
+
+## Private Service Connection
+
+[doc](https://cloud.google.com/vpc/docs/configure-private-services-access?hl=en_US)
+
+### IP Range
+
+```bash
+gcloud compute addresses create transitive-ip-ranges-for-private-services --global --purpose=VPC_PEERING --addresses=192.168.100.0 --prefix-length=24 --network=transitive-net
+```
+
+### Connection
+
+```bash
+gcloud services vpc-peerings connect --service=servicenetworking.googleapis.com --ranges=transitive-ip-ranges-for-private-services --network=transitive-net
+```
+
+## Private CloudSQL
+
+```bash
+gcloud beta sql instances create private-cloudsql-00 --network transitive-net
+```
+
+### Exchange Custom Route
+
+```bash
+
+gcloud compute routes create on-prem-route-to-privateservices --destination-range 192.168.100.0/24 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
+```
+```bash
+gcloud compute networks peerings update cloudsql-mysql-googleapis-com --network=transitive-net --export-custom-routes
+```
+
+### Verify
+
+* VM transitive-vm - - 3306 - -> private-cloudsql-00 [o]
+* VM on-prem-vm - - 3306 - -> private-cloudsql-00 [o]
+* VM peered-vm - - 3306 - -> private-cloudsql-00 [x]
+
+## Private MemoryStore
+
+## Private NetApp
+
+TODO: need another private serivce connection
+
+## Private Kubernetes
 
 ## Clean Up
 
