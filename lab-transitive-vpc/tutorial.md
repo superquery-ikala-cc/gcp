@@ -210,6 +210,13 @@ ERROR: The IP ranges for the connection do not have enough available IPs. Alloca
 
 ### Exchange Custom Route
 
+```bash
+gcloud compute routes create on-prem-route-to-privateservices --destination-range 192.168.100.0/24 --network on-prem-net --next-hop-vpn-tunnel on-prem-tunnel --next-hop-vpn-tunnel-region asia-east1
+```
+```bash
+gcloud compute networks peerings update cloudsql-mysql-googleapis-com --network=transitive-net --export-custom-routes
+```
+
 ### Verify
 
 * VM transitive-vm - - 6379 - -> private-memorystore-00 [o]
