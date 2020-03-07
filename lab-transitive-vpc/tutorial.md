@@ -120,10 +120,10 @@ gcloud compute forwarding-rules create transitive-fr-udp4500 --ip-protocol UDP -
 ### Tunnel
 
 ```bash
-gcloud compute vpn-tunnels create on-prem-tunnel --peer-address $transitive_vpn_gw_ip --target-vpn-gateway on-prem-vpn-gw --ike-version 2 --local-traffic-selector 192.168.101.0/24 --remote-traffic-selector 192.168.102.0/24 --shared-secret=sharedsecret --region asia-east1
+gcloud compute vpn-tunnels create on-prem-tunnel --peer-address $transitive_vpn_gw_ip --target-vpn-gateway on-prem-vpn-gw --ike-version 2 --local-traffic-selector 0.0.0.0/0 --remote-traffic-selector 0.0.0.0/0 --shared-secret=sharedsecret --region asia-east1
 ```
 ```bash
-gcloud compute vpn-tunnels create transitive-tunnel --peer-address $on_prem_vpn_gw_ip --target-vpn-gateway transitive-vpn-gw --ike-version 2 --local-traffic-selector 192.168.102.0/24 --remote-traffic-selector 192.168.101.0/24 --shared-secret=sharedsecret --region asia-east1
+gcloud compute vpn-tunnels create transitive-tunnel --peer-address $on_prem_vpn_gw_ip --target-vpn-gateway transitive-vpn-gw --ike-version 2 --local-traffic-selector 0.0.0.0/0 --remote-traffic-selector 0.0.0.0/0 --shared-secret=sharedsecret --region asia-east1
 ```
 
 ### Route
