@@ -193,14 +193,24 @@ gcloud compute instances create {{vm-b}} --network-interface subnet={{vpc-b-0}}-
 
 ### vm-a
 
-```bash
 TODO
+
+```bash
+gcloud compute instances update {{vm-a}} --metadata="enable-oslogin=TRUE,startup-script=apt-get update"
 ```
 
 ### vm-b
 
-```bash
 TODO
+
+```bash
+gcloud compute instances update {{vm-b}} --metadata="enable-oslogin=TRUE,startup-script=yum upgrade"
+```
+
+### Re-Run Script
+
+```
+sudo google_metadata_script_runner --script-type startup --debug
 ```
 
 ## Restart VM
