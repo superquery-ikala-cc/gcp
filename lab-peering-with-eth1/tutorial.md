@@ -193,18 +193,18 @@ gcloud compute instances create {{vm-b}} --network-interface subnet={{vpc-b-0}}-
 
 ### vm-a
 
-TODO
+TODO: update startup-script-for-debian.sh
 
 ```bash
-gcloud compute instances update {{vm-a}} --metadata="enable-oslogin=TRUE,startup-script=apt-get update"
+gcloud compute instances add-metadata {{vm-a}} --metadata-from-file startup-script=startup-script-for-debian.sh 
 ```
 
 ### vm-b
 
-TODO
+TODO: update startup-script-for-centos.sh 
 
 ```bash
-gcloud compute instances update {{vm-b}} --metadata="enable-oslogin=TRUE,startup-script=yum upgrade"
+gcloud compute instances add-metadata {{vm-b}} --metadata-from-file startup-script=startup-script-for-centos.sh 
 ```
 
 ### Re-Run Script
