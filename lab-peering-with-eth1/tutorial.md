@@ -153,7 +153,45 @@ gcloud compute networks peerings create peer-b-1-to-a-1 --auto-create-routes --n
 
 ## Create VM
 
+### vm-a-0
+
+```bash
+gcloud compute instances create {{vm-a-0}} --subnet {{vpc-a-0}}-subnet --image-family debian-9 --image-project debian-cloud --metadata="enable-oslogin=TRUE,startup-script=apt-get update"
+```
+
+### vm-a-1
+
+```bash
+gcloud compute instances create {{vm-a-1}} --subnet {{vpc-a-1}}-subnet --image-family debian-9 --image-project debian-cloud --metadata="enable-oslogin=TRUE,startup-script=apt-get update"
+```
+
+### vm-a
+
 TODO
+
+```bash
+gcloud compute instances create {{vm-a}} --subnet {{vpc-a-0}}-subnet --image-family debian-9 --image-project debian-cloud --metadata="enable-oslogin=TRUE,startup-script=apt-get update"
+```
+
+### vm-b-0
+
+```bash
+gcloud compute instances create {{vm-b-0}} --subnet {{vpc-b-0}}-subnet --image-family centos-7 --image-project centos-cloud --metadata="enable-oslogin=TRUE,startup-script=yum upgrade"
+```
+
+### vm-b-1
+
+```bash
+gcloud compute instances create {{vm-b-1}} --subnet {{vpc-b-1}}-subnet --image-family centos-7 --image-project centos-cloud --metadata="enable-oslogin=TRUE,startup-script=yum upgrade"
+```
+
+### vm-b
+
+TODO
+
+```bash
+gcloud compute instances create {{vm-b}} --subnet {{vpc-b-0}}-subnet --image-family centos-7 --image-project centos-cloud --metadata="enable-oslogin=TRUE,startup-script=yum upgrade"
+```
 
 ## Restart VM
 
