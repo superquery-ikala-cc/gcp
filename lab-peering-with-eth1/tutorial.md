@@ -193,16 +193,24 @@ gcloud compute instances create {{vm-b}} --network-interface subnet={{vpc-b-0}}-
 
 ### vm-a
 
-TODO: update startup-script-for-debian.sh
-
+```
+sed "s/ETH1_GATEWAY//" startup-script-for-debian.sh.template > startup-script-for-debian.sh
+```
+```
+sed "s|PEER_SUBNET_CIDR|{{vpc-b-1-subnet-ip-range}}|g" startup-script-for-debian.sh.template > startup-script-for-debian.sh
+```
 ```bash
 gcloud compute instances add-metadata {{vm-a}} --metadata-from-file startup-script=startup-script-for-debian.sh 
 ```
 
 ### vm-b
 
-TODO: update startup-script-for-centos.sh 
-
+```
+sed "s/ETH1_GATEWAY//" startup-script-for-centos.sh.template > startup-script-for-centos.sh
+```
+```
+sed "s|PEER_SUBNET_CIDR|{{vpc-a-1-subnet-ip-range}}|g" startup-script-for-centos.sh.template > startup-script-for-centos.sh
+```
 ```bash
 gcloud compute instances add-metadata {{vm-b}} --metadata-from-file startup-script=startup-script-for-centos.sh 
 ```
