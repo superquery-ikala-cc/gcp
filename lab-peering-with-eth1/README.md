@@ -1,7 +1,7 @@
 
 # Acknoledgement
 
-Credit to n/a
+Credit to https://medium.com/faun/creating-instances-with-multiple-network-interfaces-and-ip-route-issue-on-google-cloud-platform-6ac24977613e 
 
 # Tutorial
 
@@ -10,4 +10,3 @@ Credit to n/a
 # Related Docs
 
 * https://cloud.google.com/vpc/docs/vpc-peering#multiple_network_interfaces_per_instance
-* https://medium.com/faun/creating-instances-with-multiple-network-interfaces-and-ip-route-issue-on-google-cloud-platform-6ac24977613e 
