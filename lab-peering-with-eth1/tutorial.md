@@ -167,10 +167,8 @@ gcloud compute instances create {{vm-a-1}} --subnet {{vpc-a-1}}-subnet --image-f
 
 ### vm-a
 
-TODO
-
 ```bash
-gcloud compute instances create {{vm-a}} --subnet {{vpc-a-0}}-subnet --image-family debian-9 --image-project debian-cloud --metadata="enable-oslogin=TRUE,startup-script=apt-get update"
+gcloud compute instances create {{vm-a}} --network-interface subnet={{vpc-a-0}}-subnet --network-interface subnet={{vpc-a-1}}-subnet --image-family debian-9 --image-project debian-cloud --metadata="enable-oslogin=TRUE,startup-script=apt-get update"
 ```
 
 ### vm-b-0
@@ -187,10 +185,22 @@ gcloud compute instances create {{vm-b-1}} --subnet {{vpc-b-1}}-subnet --image-f
 
 ### vm-b
 
-TODO
+```bash
+gcloud compute instances create {{vm-b}} --network-interface subnet={{vpc-b-0}}-subnet --network-interface subnet={{vpc-b-1}}-subnet --image-family centos-7 --image-project centos-cloud --metadata="enable-oslogin=TRUE,startup-script=yum upgrade"
+```
+
+## Update Startup Script
+
+### vm-a
 
 ```bash
-gcloud compute instances create {{vm-b}} --subnet {{vpc-b-0}}-subnet --image-family centos-7 --image-project centos-cloud --metadata="enable-oslogin=TRUE,startup-script=yum upgrade"
+TODO
+```
+
+### vm-b
+
+```bash
+TODO
 ```
 
 ## Restart VM
