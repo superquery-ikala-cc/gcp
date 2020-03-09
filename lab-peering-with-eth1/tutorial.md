@@ -144,7 +144,12 @@ gcloud compute firewall-rules create {{vpc-b-1}}-fw --network {{vpc-b-1}} --allo
 
 ## Create Peering
 
-TODO
+```bash
+gcloud compute networks peerings create peer-a-1-to-b-1 --auto-create-routes --network={{vpc-a-1}} --peer-project {{project-id}} --peer-network {{vpc-b-1}}
+```
+```bash
+gcloud compute networks peerings create peer-b-1-to-a-1 --auto-create-routes --network={{vpc-b-1}} --peer-project {{project-id}} --peer-network {{vpc-a-1}}
+```
 
 ## Create VM
 
