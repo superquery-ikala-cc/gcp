@@ -12,10 +12,12 @@ Click the **Start** button to move to the next step.
 <walkthrough-watcher-constant key="vpc-a-1" value="vpc-a-1"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="vpc-b-0" value="vpc-b-0"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="vpc-b-1" value="vpc-b-1"></walkthrough-watcher-constant>
-<walkthrough-watcher-constant key="vpc-a-0-subnet-ip-range" value="192.168.100.0/24"></walkthrough-watcher-constant>
-<walkthrough-watcher-constant key="vpc-a-1-subnet-ip-range" value="192.168.101.0/24"></walkthrough-watcher-constant>
-<walkthrough-watcher-constant key="vpc-b-0-subnet-ip-range" value="192.168.200.0/24"></walkthrough-watcher-constant>
-<walkthrough-watcher-constant key="vpc-b-1-subnet-ip-range" value="192.168.201.0/24"></walkthrough-watcher-constant>
+<walkthrough-watcher-constant key="vpc-a-0-subnet-cidr" value="192.168.100.0/24"></walkthrough-watcher-constant>
+<walkthrough-watcher-constant key="vpc-a-1-subnet-cidr" value="192.168.101.0/24"></walkthrough-watcher-constant>
+<walkthrough-watcher-constant key="vpc-b-0-subnet-cidr" value="192.168.200.0/24"></walkthrough-watcher-constant>
+<walkthrough-watcher-constant key="vpc-b-1-subnet-cidr" value="192.168.201.0/24"></walkthrough-watcher-constant>
+<walkthrough-watcher-constant key="vpc-a-1-subnet-gw" value="192.168.101.1"></walkthrough-watcher-constant>
+<walkthrough-watcher-constant key="vpc-b-1-subnet-gw" value="192.168.201.1"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="vm-a" value="vm-a"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="vm-b" value="vm-b"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="vm-a-0" value="vm-a-0"></walkthrough-watcher-constant>
@@ -31,13 +33,17 @@ vpc-b-0 = {{vpc-b-0}}
 
 vpc-b-1 = {{vpc-b-1}}
 
-vpc-a-0-subnet-ip-range = {{vpc-a-0-subnet-ip-range}}
+vpc-a-0-subnet-cidr = {{vpc-a-0-subnet-cidr}}
 
-vpc-a-1-subnet-ip-range = {{vpc-a-1-subnet-ip-range}}
+vpc-a-1-subnet-cidr = {{vpc-a-1-subnet-cidr}}
 
-vpc-b-0-subnet-ip-range = {{vpc-b-0-subnet-ip-range}}
+vpc-b-0-subnet-cidr = {{vpc-b-0-subnet-cidr}}
 
-vpc-b-1-subnet-ip-range = {{vpc-b-1-subnet-ip-range}}
+vpc-b-1-subnet-cidr = {{vpc-b-1-subnet-cidr}}
+
+vpc-a-1-subnet-gw = {{vpc-a-1-subnet-gw}}
+
+vpc-b-1-subnet-gw = {{vpc-b-1-subnet-gw}}
 
 vm-a = {{vm-a}}
 
@@ -100,7 +106,7 @@ None
 gcloud compute networks create {{vpc-a-0}} --subnet-mode custom
 ```
 ```bash
-gcloud compute networks subnets create {{vpc-a-0}}-subnet --network {{vpc-a-0}} --range {{vpc-a-0-subnet-ip-range}}
+gcloud compute networks subnets create {{vpc-a-0}}-subnet --network {{vpc-a-0}} --range {{vpc-a-0-subnet-cidr}}
 ```
 ```bash
 gcloud compute firewall-rules create {{vpc-a-0}}-fw --network {{vpc-a-0}} --allow tcp:22,icmp
@@ -112,7 +118,7 @@ gcloud compute firewall-rules create {{vpc-a-0}}-fw --network {{vpc-a-0}} --allo
 gcloud compute networks create {{vpc-a-1}} --subnet-mode custom
 ```
 ```bash
-gcloud compute networks subnets create {{vpc-a-1}}-subnet --network {{vpc-a-1}} --range {{vpc-a-1-subnet-ip-range}}
+gcloud compute networks subnets create {{vpc-a-1}}-subnet --network {{vpc-a-1}} --range {{vpc-a-1-subnet-cidr}}
 ```
 ```bash
 gcloud compute firewall-rules create {{vpc-a-1}}-fw --network {{vpc-a-1}} --allow tcp:22,icmp
@@ -124,7 +130,7 @@ gcloud compute firewall-rules create {{vpc-a-1}}-fw --network {{vpc-a-1}} --allo
 gcloud compute networks create {{vpc-b-0}} --subnet-mode custom
 ```
 ```bash
-gcloud compute networks subnets create {{vpc-b-0}}-subnet --network {{vpc-b-0}} --range {{vpc-b-0-subnet-ip-range}}
+gcloud compute networks subnets create {{vpc-b-0}}-subnet --network {{vpc-b-0}} --range {{vpc-b-0-subnet-cidr}}
 ```
 ```bash
 gcloud compute firewall-rules create {{vpc-b-0}}-fw --network {{vpc-b-0}} --allow tcp:22,icmp
@@ -136,7 +142,7 @@ gcloud compute firewall-rules create {{vpc-b-0}}-fw --network {{vpc-b-0}} --allo
 gcloud compute networks create {{vpc-b-1}} --subnet-mode custom
 ```
 ```bash
-gcloud compute networks subnets create {{vpc-b-1}}-subnet --network {{vpc-b-1}} --range {{vpc-b-1-subnet-ip-range}}
+gcloud compute networks subnets create {{vpc-b-1}}-subnet --network {{vpc-b-1}} --range {{vpc-b-1-subnet-cidr}}
 ```
 ```bash
 gcloud compute firewall-rules create {{vpc-b-1}}-fw --network {{vpc-b-1}} --allow tcp:22,icmp
@@ -194,10 +200,10 @@ gcloud compute instances create {{vm-b}} --network-interface subnet={{vpc-b-0}}-
 ### vm-a
 
 ```
-sed "s/ETH1_GATEWAY//" startup-script-for-debian.sh.template > startup-script-for-debian.sh
+sed "s/ETH1_GATEWAY/{{vpc-a-1-subnet-gw}}/g" startup-script-for-debian.sh.template > startup-script-for-debian.sh
 ```
 ```
-sed "s|PEER_SUBNET_CIDR|{{vpc-b-1-subnet-ip-range}}|g" startup-script-for-debian.sh.template > startup-script-for-debian.sh
+sed "s|PEER_SUBNET_CIDR|{{vpc-b-1-subnet-cidr}}|g" startup-script-for-debian.sh.template > startup-script-for-debian.sh
 ```
 ```bash
 gcloud compute instances add-metadata {{vm-a}} --metadata-from-file startup-script=startup-script-for-debian.sh 
@@ -206,10 +212,10 @@ gcloud compute instances add-metadata {{vm-a}} --metadata-from-file startup-scri
 ### vm-b
 
 ```
-sed "s/ETH1_GATEWAY//" startup-script-for-centos.sh.template > startup-script-for-centos.sh
+sed "s/ETH1_GATEWAY/{{vpc-b-1-subnet-gw}}/g" startup-script-for-centos.sh.template > startup-script-for-centos.sh
 ```
 ```
-sed "s|PEER_SUBNET_CIDR|{{vpc-a-1-subnet-ip-range}}|g" startup-script-for-centos.sh.template > startup-script-for-centos.sh
+sed "s|PEER_SUBNET_CIDR|{{vpc-a-1-subnet-cidr}}|g" startup-script-for-centos.sh.template > startup-script-for-centos.sh
 ```
 ```bash
 gcloud compute instances add-metadata {{vm-b}} --metadata-from-file startup-script=startup-script-for-centos.sh 
