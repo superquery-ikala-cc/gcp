@@ -85,6 +85,26 @@ Project level
 Resource level (dataset)
 * none
 
+## Create VM
+
+```bash
+gcloud compute instances create data-user-vm --service-account={{service-account-for-data-user}}@{{project-id}}.iam.gserviceaccount.com --scopes=cloud-platform
+```
+
+## Verify
+
+### GCS
+
+```
+gsutil -u {{project-id}} cat gs://{{bucket-name}}/readme.txt
+```
+
+### BQ
+
+```
+bq query --use_legacy_sql=false 'SELECT * FROM DATA-OWNER-PROJECT.{{dataset-name}}.readme'
+```
+
 ## Setup Project Y
 
 For data owner
