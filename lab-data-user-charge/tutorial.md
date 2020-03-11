@@ -197,9 +197,9 @@ Then, select the [Add members][spotlight-add-members] button.
 
 [spotlight-add-members]: walkthrough://spotlight-pointer?cssSelector=jfk-button.p6n-open-add-member
 
-Member = **{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.com**
+Then, add the **{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.com** member.
 
-Role = **Storage Object Viewer**
+Then, select the **Storage Object Viewer** role.
 
 ### Enable Requester Pay
 
@@ -240,10 +240,15 @@ Then, select the **BigQuery** section.
 
 <walkthrough-menu-navigation sectionId="BIGQUERY_SECTION"></walkthrough-menu-navigation>
 
-### Create A Table
+Then, select the **{{dataset-name}}** dataset.
 
-```bash
-```
+Then, select the [SHARE DATASET][spotlight-share-dataset] button.
+
+[spotlight-share-dataset]: walkthrough://spotlight-pointer?cssSelector=.p6n-bq-test-share-dataset-button
+
+Then, add the **{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.com** member.
+
+Then, select the **BigQuery Data Viewer** role.
 
 ## Clean Up
 
