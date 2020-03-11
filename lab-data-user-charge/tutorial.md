@@ -9,7 +9,7 @@ Click the **Start** button to move to the next step.
 ## Configuration
 
 <walkthrough-watcher-constant key="bucket-name" value="data-user-pay-bucket"></walkthrough-watcher-constant>
-<walkthrough-watcher-constant key="dataset-name" value="data-user-pay-dataset"></walkthrough-watcher-constant>
+<walkthrough-watcher-constant key="dataset-name" value="data_user_pay_dataset"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="data-user-account" value="data-user"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="data-user-project" value="gcp-expert-sandbox-jim"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="data-owner-project" value="eco-theater-268514"></walkthrough-watcher-constant>
@@ -172,9 +172,11 @@ gcloud projects add-iam-policy-binding {{project-id}} --member serviceAccount:{{
 Resource level (dataset)
 * BigQuery Data Viewer
 
-## Create Bucket
+## Create Bucket Y
 
 ```bash
+gsutil mb -c STANDARD -l asia-east1 -b on gs://{{bucket-name}}/
+
 ```
 
 ### Grant Permission
@@ -185,10 +187,24 @@ Then, select the **Storage** section.
 
 <walkthrough-menu-navigation sectionId="STORAGE_SECTION"></walkthrough-menu-navigation>
 
+Then, select the **{{bucket-name}}** bucket.
+
+Then, select the [Permissions][spotlight-permissions] tab.
+
+[spotlight-permissions]: walkthrough://spotlight-pointer?cssSelector=[g-tab-value=permissions]
+
+Then, select the [Add members][spotlight-add-members] button.
+
+[spotlight-add-members]: walkthrough://spotlight-pointer?cssSelector=jfk-button.p6n-open-add-member
+
+Member = **{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.com**
+
+Role = **Storage Object Viewer**
 
 ### Enable Requester Pay
 
 ```bash
+gsutil requesterpays set on gs://{{bucket-name}}
 ```
 
 ### Create A File
@@ -198,12 +214,22 @@ Then, select the **Storage** section.
 
 ### Enable Data Access Audit Log
 
-```bash
-```
+Open the [menu][spotlight-console-menu] on the left side of the console.
+
+Then, select the **IAM & Admin** section.
+
+<walkthrough-menu-navigation sectionId="IAM_ADMIN_SECTION"></walkthrough-menu-navigation>
+
+Then, select the [Audit Logs][spotlight-audit-logs] menu.
+
+[spotlight-audit-logs]: walkthrough://spotlight-pointer?cssSelector=[id=cfctest-section-nav-item-audit]
+
+TODO: ADD MORE INSTRUCTIONS
 
 ## Create Dataset
 
 ```bash
+bq --location=asia-east1 mk --dataset --default_table_expiration 0 --default_partition_expiration 31536000 {{project-id}}:{{dataset-name}}
 ```
 
 ### Grant Permission

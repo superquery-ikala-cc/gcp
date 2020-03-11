@@ -44,8 +44,9 @@ Then, select the **Cloud Run** section.
 
 <walkthrough-footnote>NOTE: inspect and find css class of prefix cfc-console-nav-section-</walkthrough-footnote>
 
-
 ## Button Textbox List
+
+[css selector reference](https://www.w3schools.com/cssref/css_selectors.asp)
 
 ### Compute Engine
 
