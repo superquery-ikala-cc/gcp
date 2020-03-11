@@ -179,7 +179,12 @@ Resource level (dataset)
 
 ### Grant Permission
 
-TODO
+Open the [menu][spotlight-console-menu] on the left side of the console.
+
+Then, select the **Storage** section.
+
+<walkthrough-menu-navigation sectionId="STORAGE_SECTION"></walkthrough-menu-navigation>
+
 
 ### Enable Requester Pay
 
@@ -203,7 +208,11 @@ TODO
 
 ### Grant Permission
 
-TODO
+Open the [menu][spotlight-console-menu] on the left side of the console.
+
+Then, select the **BigQuery** section.
+
+<walkthrough-menu-navigation sectionId="BIGQUERY_SECTION"></walkthrough-menu-navigation>
 
 ### Create A Table
 
@@ -215,3 +224,5 @@ TODO
 ```bash
 TODO
 ```
+
+[spotlight-console-menu]: walkthrough://spotlight-pointer?spotlightId=console-nav-menu

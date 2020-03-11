@@ -4,6 +4,8 @@
 
 Open the [menu][spotlight-console-menu] on the left side of the console.
 
+[spotlight-console-menu]: walkthrough://spotlight-pointer?spotlightId=console-nav-menu
+
 Then, select the **App Engine** section.
 
 <walkthrough-menu-navigation sectionId="APPENGINE_SECTION"></walkthrough-menu-navigation>
