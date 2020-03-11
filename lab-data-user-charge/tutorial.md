@@ -72,6 +72,7 @@ For data user
 
 Project level
 * Permission serviceusage.services.use
+* OR Service Usage Consumer
 * OR Project Editor
 
 Resource level (bucket)
