@@ -122,6 +122,12 @@ TODO
 
 ### LOG
 
+Open the [menu][spotlight-console-menu] on the left side of the console.
+
+Then, select the **Logging** section.
+
+<walkthrough-menu-navigation sectionId="LOGS_SECTION"></walkthrough-menu-navigation>
+
 ```txt
 [o]
 resource.type="bigquery_resource"
@@ -166,6 +172,9 @@ resource.type="gcs_bucket"
 logName="projects/{{data-user-project}}/logs/cloudaudit.googleapis.com%2Factivity"
 protoPayload.authenticationInfo.principalEmail="{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.com"
 ```
+
+### LOG O
+
 ```txt
 [o]
 resource.type="bigquery_resource"
@@ -299,6 +308,8 @@ Then, add the **{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.
 
 Then, select the **Storage Object Viewer** role.
 
+Finally, click the **SAVE** button.
+
 ### Enable Requester Pay
 
 ```bash
@@ -318,6 +329,8 @@ Then, select the [Audit Logs][spotlight-audit-logs] menu.
 Then, select the **Google Cloud Storage** service.
 
 Then, enable the **Data Read** log.
+
+Finally, click the **SAVE** button.
 
 [spotlight-audit-logs]: walkthrough://spotlight-pointer?cssSelector=[id=cfctest-section-nav-item-audit]
 
@@ -350,6 +363,8 @@ Then, select the [SHARE DATASET][spotlight-share-dataset] button.
 Then, add the **{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.com** member.
 
 Then, select the **BigQuery Data Viewer** role.
+
+Finally, click the **Done** button.
 
 ## Clean Up
 
