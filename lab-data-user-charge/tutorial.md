@@ -128,6 +128,10 @@ resource.type="bigquery_resource"
 logName="projects/{{data-user-project}}/logs/cloudaudit.googleapis.com%2Fdata_access"
 protoPayload.authenticationInfo.principalEmail="{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.com"
 protoPayload.methodName="jobservice.insert"
+
+
+Can see query statement (field: protoPayload.serviceData.jobInsertRequest.resource.jobConfiguration.query.query)
+Can see caller ip (field: protoPayload.requestMetadata.callerIp)
 ```
 ```txt
 [o]
@@ -135,6 +139,14 @@ resource.type="bigquery_resource"
 logName="projects/{{data-user-project}}/logs/cloudaudit.googleapis.com%2Fdata_access"
 protoPayload.authenticationInfo.principalEmail="{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.com"
 protoPayload.methodName="jobservice.jobcompleted"
+
+
+Can see query statement (field: protoPayload.serviceData.jobCompletedEvent.job.jobConfiguration.query.query)
+Can see caller ip (field: protoPayload.requestMetadata.callerIp)
+Can see result row count (field: protoPayload.serviceData.jobCompletedEvent.job.jobStatistics.queryOutputRowCount)
+Can see billed bytes (field: protoPayload.serviceData.jobCompletedEvent.job.jobStatistics.totalBilledBytes)
+Can see table (field: protoPayload.serviceData.jobCompletedEvent.job.jobStatistics.referencedTables.tableId)
+Can see dataset (field: protoPayload.serviceData.jobCompletedEvent.job.jobStatistics.referencedTables.datasetId)
 ```
 ```txt
 [x]
@@ -159,6 +171,10 @@ protoPayload.authenticationInfo.principalEmail="{{data-user-account}}@{{data-use
 resource.type="bigquery_resource"
 logName="projects/{{data-owner-project}}/logs/cloudaudit.googleapis.com%2Fdata_access"
 protoPayload.authenticationInfo.principalEmail="{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.com"
+
+
+Can see caller ip (field: protoPayload.requestMetadata.callerIp)
+Can see table (field: protoPayload.authorizationInfo.resource)
 ```
 ```txt
 [x]
@@ -178,6 +194,12 @@ resource.type="gcs_bucket"
 logName="projects/{{data-owner-project}}/logs/cloudaudit.googleapis.com%2Factivity"
 protoPayload.authenticationInfo.principalEmail="{{data-user-account}}@{{data-user-project}}.iam.gserviceaccount.com"
 protoPayload.methodName="storage.objects.get"
+
+
+Can see caller ip (field: protoPayload.requestMetadata.callerIp)
+Can see bucket (field: resource.labels.bucket_name)
+Can see object (field: protoPayload.authorizationInfo.resource)
+Can see object (field: protoPayload.resourceName)
 ```
 
 ## Setup Project O
