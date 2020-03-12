@@ -24,7 +24,7 @@ data-user-project = {{data-user-project}}
 
 data-owner-project = {{data-owner-project}}
 
-## Setup Project X
+## Setup Project U
 
 For data user project
 
@@ -32,7 +32,7 @@ For data user project
 
 <walkthrough-footnote>NOTE: need owner permission</walkthrough-footnote>
 
-## Setup Cloud SDK X
+## Setup Cloud SDK U
 
 ### gcloud
 
@@ -54,17 +54,17 @@ None
 
 None
 
-## Enable APIs X
+## Enable APIs U
 
 <walkthrough-enable-apis apis="bigquery.googleapis.com,bigquerystorage.googleapis.com,storage-api.googleapis.com,storage-component.googleapis.com"></walkthrough-enable-apis>
 
-## Create Accounts X
+## Create Accounts U
 
 ```bash
 gcloud iam service-accounts create {{data-user-account}}
 ```
 
-## Grant Permissions X
+## Grant Permissions U
 
 ### GCS
 
@@ -92,13 +92,13 @@ gcloud projects add-iam-policy-binding {{project-id}} --member serviceAccount:{{
 Resource level (dataset)
 * none
 
-## Create VM X
+## Create VM U
 
 ```bash
 gcloud compute instances create data-user-vm --service-account={{data-user-account}}@{{project-id}}.iam.gserviceaccount.com --scopes=cloud-platform
 ```
 
-## Verify X
+## Verify U
 
 ### GCS
 
@@ -109,7 +109,7 @@ gsutil -u {{project-id}} cat gs://{{bucket-name}}/1GB.txt
 ### BQ
 
 ```
-bq query --use_legacy_sql=false 'SELECT * FROM {{data-owner-project}}.{{dataset-name}}.commits'
+bq query --use_legacy_sql=false 'SELECT * FROM {{data-owner-project}}.{{dataset-name}}.sample_commits'
 ```
 
 ### SKU
@@ -120,7 +120,7 @@ TODO
 
 TODO
 
-## Setup Project Y
+## Setup Project O
 
 For data owner project
 
@@ -128,7 +128,7 @@ For data owner project
 
 <walkthrough-footnote>NOTE: need owner permission</walkthrough-footnote>
 
-## Setup Cloud SDK Y
+## Setup Cloud SDK O
 
 ### gcloud
 
@@ -150,15 +150,15 @@ None
 
 None
 
-## Enable APIs Y
+## Enable APIs O
 
 <walkthrough-enable-apis apis="bigquery.googleapis.com,bigquerystorage.googleapis.com,storage-api.googleapis.com,storage-component.googleapis.com"></walkthrough-enable-apis>
 
-## Create Accounts Y
+## Create Accounts O
 
 None
 
-## Grant Permissions Y
+## Grant Permissions O
 
 ### GCS
 
@@ -180,7 +180,7 @@ gcloud projects add-iam-policy-binding {{project-id}} --member serviceAccount:{{
 Resource level (dataset)
 * BigQuery Data Viewer
 
-## Create Bucket Y
+## Create Bucket O
 
 ```bash
 gsutil mb -c STANDARD -l asia-east1 -b on gs://{{bucket-name}}/
@@ -239,8 +239,6 @@ Then, enable the **Data Read** log.
 
 [spotlight-audit-logs]: walkthrough://spotlight-pointer?cssSelector=[id=cfctest-section-nav-item-audit]
 
-TODO: ADD MORE INSTRUCTIONS
-
 ## Create Dataset
 
 ```bash
@@ -250,7 +248,7 @@ bq --location=us mk --dataset --default_table_expiration 0 --default_partition_e
 ### Create Table
 
 ```txt
-bq query --location us --replace --destination_table {{project-id}}:{{dataset-name}}.commits --use_legacy_sql=false 'SELECT * FROM `bigquery-public-data.github_repos.commits`'
+bq query --location us --replace --destination_table {{project-id}}:{{dataset-name}}.sample_commits --use_legacy_sql=false 'SELECT * FROM `bigquery-public-data.github_repos.sample_commits`'
 ```
 
 ### Grant Permission
