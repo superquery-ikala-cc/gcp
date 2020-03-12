@@ -14,15 +14,19 @@ Click the **Start** button to move to the next step.
 <walkthrough-watcher-constant key="data-user-project" value="gcp-expert-sandbox-jim"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="data-owner-project" value="eco-theater-268514"></walkthrough-watcher-constant>
 
+### Data Owner
+
+data-owner-project = {{data-owner-project}}
+
 bucket-name = {{bucket-name}}
 
 dataset-name = {{dataset-name}}
 
-data-user-account = {{data-user-account}}
+### Data User
 
 data-user-project = {{data-user-project}}
 
-data-owner-project = {{data-owner-project}}
+data-user-account = {{data-user-account}}
 
 ## Setup Project U
 
@@ -118,7 +122,22 @@ TODO
 
 ### LOG
 
-TODO
+```txt
+resource.type="bigquery_resource"
+logName="projects/{{data-user-project}}/logs/cloudaudit.googleapis.com%2Fdata_access"
+```
+```txt
+resource.type="gcs_bucket"
+logName="projects/{{data-user-project}}/logs/cloudaudit.googleapis.com%2Factivity"
+```
+```txt
+resource.type="bigquery_resource"
+logName="projects/{{data-owner-project}}/logs/cloudaudit.googleapis.com%2Fdata_access"
+```
+```txt
+resource.type="gcs_bucket"
+logName="projects/{{data-owner-project}}/logs/cloudaudit.googleapis.com%2Factivity"
+```
 
 ## Setup Project O
 
