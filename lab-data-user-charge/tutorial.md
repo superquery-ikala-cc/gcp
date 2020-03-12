@@ -103,14 +103,22 @@ gcloud compute instances create data-user-vm --service-account={{data-user-accou
 ### GCS
 
 ```
-gsutil -u {{project-id}} cat gs://{{bucket-name}}/readme.txt
+gsutil -u {{project-id}} cat gs://{{bucket-name}}/1GB.txt
 ```
 
 ### BQ
 
 ```
-bq query --use_legacy_sql=false 'SELECT * FROM {{data-owner-project}}.{{dataset-name}}.readme'
+bq query --use_legacy_sql=false 'SELECT * FROM {{data-owner-project}}.{{dataset-name}}.commits'
 ```
+
+### SKU
+
+TODO
+
+### LOG
+
+TODO
 
 ## Setup Project Y
 
@@ -176,7 +184,15 @@ Resource level (dataset)
 
 ```bash
 gsutil mb -c STANDARD -l asia-east1 -b on gs://{{bucket-name}}/
+```
 
+### Create Object
+
+```bash
+dd if=/dev/zero of=/tmp/1GB.txt bs=1024 count=1048576
+```
+```bash
+gsutil cp /tmp/1GB.txt gs://{{bucket-name}}/1GB.txt
 ```
 
 ### Grant Permission
@@ -205,11 +221,6 @@ Then, select the **Storage Object Viewer** role.
 
 ```bash
 gsutil requesterpays set on gs://{{bucket-name}}
-```
-
-### Create A File
-
-```bash
 ```
 
 ### Enable Data Access Audit Log
