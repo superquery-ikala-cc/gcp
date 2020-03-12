@@ -233,6 +233,10 @@ Then, select the **IAM & Admin** section.
 
 Then, select the [Audit Logs][spotlight-audit-logs] menu.
 
+Then, select the **Google Cloud Storage** service.
+
+Then, enable the **Data Read** log.
+
 [spotlight-audit-logs]: walkthrough://spotlight-pointer?cssSelector=[id=cfctest-section-nav-item-audit]
 
 TODO: ADD MORE INSTRUCTIONS
