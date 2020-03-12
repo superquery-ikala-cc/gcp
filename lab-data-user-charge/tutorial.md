@@ -229,7 +229,13 @@ TODO: ADD MORE INSTRUCTIONS
 ## Create Dataset
 
 ```bash
-bq --location=asia-east1 mk --dataset --default_table_expiration 0 --default_partition_expiration 31536000 {{project-id}}:{{dataset-name}}
+bq --location=us mk --dataset --default_table_expiration 0 --default_partition_expiration 31536000 {{project-id}}:{{dataset-name}}
+```
+
+### Create Table
+
+```txt
+bq query --location us --replace --destination_table {{project-id}}:{{dataset-name}}.commits --use_legacy_sql=false 'SELECT * FROM `bigquery-public-data.github_repos.commits`'
 ```
 
 ### Grant Permission
