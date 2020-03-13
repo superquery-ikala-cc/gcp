@@ -130,6 +130,73 @@ bash benchmark-spanner-1.sh
 
 ## Generate Load 2
 
+```bash
+export db={{spanner-database}}
+export table={{spanner-table}}
+```
+```bash
+bash benchmark-spanner-2.sh
+```
+
+### Configuraiton
+
+* sleep = 1s
+* insert count = 300
+* rows per insert = 1
+
+### Monitoring Result
+
+* **fn** avg time = ?s
+* CPU utilization - high priority
+  * All database high priority tasks: ?%
+  * All instance high priority tasks: ?%
+* CPU utilization - total
+  * High-System = ?%
+  * High-User = ?%
+  * Low-System = ?%
+  * Low-User = 0%
+* Latency (write)
+  * 50th percentile = ?ms
+  * 90th percentile = ?ms
+* Operation (write) per second = ?/s
+* Throughput (write) = ?B/s
+* Total storage ~ 0
+
+## Generate Load 3
+
+```bash
+export db={{spanner-database}}
+export table={{spanner-table}}
+```
+```bash
+bash benchmark-spanner-3.sh
+```
+
+### Configuraiton
+
+* sleep = 1s
+* insert count = 300
+* rows per insert = 2
+
+### Monitoring Result
+
+* **fn** avg time = ?s
+* CPU utilization - high priority
+  * All database high priority tasks: ?%
+  * All instance high priority tasks: ?%
+* CPU utilization - total
+  * High-System = ?%
+  * High-User = ?%
+  * Low-System = ?%
+  * Low-User = 0%
+* Latency (write)
+  * 50th percentile = ?ms
+  * 90th percentile = ?ms
+* Operation (write) per second = ?/s
+* Throughput (write) = ?B/s
+* Total storage ~ 0
+
+
 ## Clean Up
 
 ```bash
