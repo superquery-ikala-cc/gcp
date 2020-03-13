@@ -10,7 +10,7 @@ Click the **Start** button to move to the next step.
 
 <walkthrough-watcher-constant key="spanner-instance" value="spanner-00"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="spanner-database" value="db-00"></walkthrough-watcher-constant>
-<walkthrough-watcher-constant key="spanner-table" value="table-00"></walkthrough-watcher-constant>
+<walkthrough-watcher-constant key="spanner-table" value="table_00"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="spanner-primkey" value="uuid32"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="spanner-region" value="asia-east1"></walkthrough-watcher-constant>
 <walkthrough-watcher-constant key="spanner-replica-count" value="3"></walkthrough-watcher-constant>
@@ -49,6 +49,9 @@ gcloud config set compute/region asia-east1
 ```bash
 gcloud config set compute/zone asia-east1-a
 ```
+```bash
+gcloud config set spanner/instance {{spanner-instance}}
+```
 
 ### gsutil
 
@@ -76,21 +79,29 @@ None
 ### Instance
 
 ```bash
+gcloud spanner instances create {{spanner-instance}} --description {{spanner-instance}} --config=regional-{{spanner-region}} --nodes={{spanner-node-count}}
 ```
 
 ### Database
 
 ```bash
+gcloud spanner databases create {{spanner-database}}
 ```
 
 ### Table
 
 ```bash
+gcloud spanner databases ddl update {{spanner-database}} --ddl='CREATE TABLE {{spanner-table}} (uuid32 STRING(32) NOT NULL) PRIMARY KEY (uuid32)'
 ```
 
 ## Generate Load
 
 ```bash
+export db={{spanner-database}}
+export table={{spanner-table}}
+```
+```bash
+bash benchmark-spanner-1.sh
 ```
 
 ### Result
