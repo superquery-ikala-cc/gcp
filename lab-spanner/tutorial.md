@@ -94,7 +94,7 @@ gcloud spanner databases create {{spanner-database}}
 gcloud spanner databases ddl update {{spanner-database}} --ddl='CREATE TABLE {{spanner-table}} (uuid32 STRING(32) NOT NULL) PRIMARY KEY (uuid32)'
 ```
 
-## Generate Load
+## Generate Loada 1
 
 ```bash
 export db={{spanner-database}}
@@ -104,7 +104,24 @@ export table={{spanner-table}}
 bash benchmark-spanner-1.sh
 ```
 
-### Result
+### Monitoring Result
+
+* **fn** avg time = 2~3s
+* **sleep** = 1s
+* CPU utilization - high priority
+  * All database high priority tasks: ?%
+  * All instance high priority tasks: ?%
+* CPU utilization - total
+  * High-System = ?%
+  * High-User = ?%
+  * Low-System = ?%
+  * Low-User = ?%
+* Latency (write)
+  * 50th percentile = ?ms
+  * 90th percentile = ? ms
+* Operation (write) per second = ?/s
+* Throughput (write) = ?/s
+* Total storage ~ 0
 
 ## Clean Up
 
