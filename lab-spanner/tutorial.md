@@ -106,6 +106,7 @@ bash benchmark-spanner-1.sh
 
 ### Configuraiton
 
+* method = rows insert
 * sleep = 1s
 * insert count = 300
 * rows per insert = 1
@@ -140,13 +141,14 @@ bash benchmark-spanner-2.sh
 
 ### Configuraiton
 
+* method = databases execute-sql
 * sleep = 1s
 * insert count = 300
 * rows per insert = 1
 
 ### Monitoring Result
 
-* **fn** avg time = ?s
+* **fn** avg time = 1~1.5s
 * CPU utilization - high priority
   * All database high priority tasks: ?%
   * All instance high priority tasks: ?%
@@ -174,6 +176,7 @@ bash benchmark-spanner-3.sh
 
 ### Configuraiton
 
+* method = databases execute-sql
 * sleep = 1s
 * insert count = 300
 * rows per insert = 2
