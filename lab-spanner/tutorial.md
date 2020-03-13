@@ -114,18 +114,18 @@ bash benchmark-spanner-1.sh
 
 * **fn** avg time = 2~3s
 * CPU utilization - high priority
-  * All database high priority tasks: ?%
-  * All instance high priority tasks: ?%
+  * All database high priority tasks: 1.06%
+  * All instance high priority tasks: 1.06%
 * CPU utilization - total
-  * High-System = ?%
-  * High-User = ?%
-  * Low-System = ?%
-  * Low-User = ?%
+  * High-System = 0.61%
+  * High-User = 0.45%
+  * Low-System = 0.12%
+  * Low-User = 0%
 * Latency (write)
-  * 50th percentile = ?ms
-  * 90th percentile = ? ms
-* Operation (write) per second = ?/s
-* Throughput (write) = ?/s
+  * 50th percentile = 10ms
+  * 90th percentile = 16ms
+* Operation (write) per second = 0.25~0.3/s
+* Throughput (write) = 50~55B/s
 * Total storage ~ 0
 
 ## Clean Up
