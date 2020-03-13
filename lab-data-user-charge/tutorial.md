@@ -118,7 +118,17 @@ bq query --use_legacy_sql=false 'SELECT * FROM {{data-owner-project}}.{{dataset-
 
 ### SKU
 
-TODO
+BQ
+* SKU = Analysis
+* Product = BigQuery
+* SKU ID = 1DF5-1F98-1DD1
+* Usage Unit = tebibyte
+
+GCS
+* SKU = Regional Standard Class B Operations
+* Product = Cloud Storage
+* SKU ID = 7870-010B-2763
+* Usage Unit = count
 
 ### LOG
 
