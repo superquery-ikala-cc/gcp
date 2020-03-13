@@ -150,19 +150,27 @@ bash benchmark-spanner-2.sh
 
 * **fn** avg time = 1~1.5s
 * CPU utilization - high priority
-  * All database high priority tasks: ?%
-  * All instance high priority tasks: ?%
+  * All database high priority tasks: 2.93%
+  * All instance high priority tasks: 2.93%
 * CPU utilization - total
-  * High-System = ?%
-  * High-User = ?%
-  * Low-System = ?%
+  * High-System = 1.21%
+  * High-User = 1.72%
+  * Low-System = 0.07%
   * Low-User = 0%
 * Latency (write)
-  * 50th percentile = ?ms
-  * 90th percentile = ?ms
-* Operation (write) per second = ?/s
-* Throughput (write) = ?B/s
+  * 50th percentile = 12ms
+  * 90th percentile = 16ms
+* Operation (write) per second = 0.4~0.45/s
+* Throughput (write) = 80B/s
 * Total storage ~ 0
+
+---
+
+* Latency (read)
+  * 50th percentile = 14ms
+  * 90th percentile = 32ms
+* Operation (read) per second = 0.4~0.45/s
+* Throughput (read) = 20B/s
 
 ## Generate Load 3
 
@@ -183,7 +191,7 @@ bash benchmark-spanner-3.sh
 
 ### Monitoring Result
 
-* **fn** avg time = ?s
+* **fn** avg time = 1~1.8s
 * CPU utilization - high priority
   * All database high priority tasks: ?%
   * All instance high priority tasks: ?%
@@ -198,7 +206,6 @@ bash benchmark-spanner-3.sh
 * Operation (write) per second = ?/s
 * Throughput (write) = ?B/s
 * Total storage ~ 0
-
 
 ## Clean Up
 
