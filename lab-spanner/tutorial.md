@@ -104,10 +104,15 @@ export table={{spanner-table}}
 bash benchmark-spanner-1.sh
 ```
 
+### Configuraiton
+
+* sleep = 1s
+* insert count = 300
+* rows per insert = 1
+
 ### Monitoring Result
 
 * **fn** avg time = 2~3s
-* **sleep** = 1s
 * CPU utilization - high priority
   * All database high priority tasks: ?%
   * All instance high priority tasks: ?%
