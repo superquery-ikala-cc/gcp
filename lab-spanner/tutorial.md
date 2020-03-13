@@ -94,7 +94,7 @@ gcloud spanner databases create {{spanner-database}}
 gcloud spanner databases ddl update {{spanner-database}} --ddl='CREATE TABLE {{spanner-table}} (uuid32 STRING(32) NOT NULL) PRIMARY KEY (uuid32)'
 ```
 
-## Generate Loada 1
+## Generate Load 1
 
 ```bash
 export db={{spanner-database}}
@@ -127,6 +127,8 @@ bash benchmark-spanner-1.sh
 * Operation (write) per second = 0.25~0.3/s
 * Throughput (write) = 50~55B/s
 * Total storage ~ 0
+
+## Generate Load 2
 
 ## Clean Up
 
