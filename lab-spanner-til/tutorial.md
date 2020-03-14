@@ -93,17 +93,38 @@ cp config-sample.env config.env
 # EDIT config.env
 ```
 
+## Generate Sample Data
+
+```bash
+gsutil mb -l asia-east1 gs://{{project-id}}-til-about-cloudspanner
+```
+```
+sudo docker run --env-file config.env -it gcr.io/{{project-id}}/til-about-cloudspanner-02:v1 generate
+```
+
 ## Create Spanner
 
 ```bash
 gcloud spanner instances create {{spanner-instance}} --config regional-{{spanner-region}} --description "TIL about Cloud Spanner" --nodes {{spanner-node-count}}
 ```
 
-## Generate Sample Data
+### Create Database and Table
+
+```
+docker run --env-file config.env -it gcr.io/{{project-id}}/til-about-cloudspanner-02:v1 create
+```
 
 ## Load Test
 
+```
+docker run --env-file config.env -it gcr.io/{{project-id}}/til-about-cloudspanner-02:v1 load
+```
+
 ## Reset Spanner
+
+```
+docker run --env-file config.env -it gcr.io/{{project-id}}/til-about-cloudspanner-02:v1 reset
+```
 
 ## Clean Up
 
