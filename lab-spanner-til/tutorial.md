@@ -93,6 +93,21 @@ cp config-sample.env config.env
 # EDIT config.env
 ```
 
+e.g.,
+
+```txt
+PROJECT={{project-id}}
+INSTANCE={{spanner-instance}}
+DATABASE={{spanner-database}}
+BUCKET={{project-id}}-til-about-cloudspanner
+FOLDERPATH=02-choosing-right-primary-keys/version01
+ACCOUNTS=1000000
+ORDERS=1000000
+PRODUCTS=1000000
+WAREHOUSES=1000000
+PARALLELTXN=10
+```
+
 ## Generate Sample Data
 
 ```bash
