@@ -25,15 +25,18 @@ function load() {
     do
         for version in v1 v2
         do
+	    echo "$(date) | CC | reset ${case}-${version}"
             sudo docker run --env-file config-${case}-${version}.env -it gcr.io/gcp-expert-sandbox-jim/til-about-cloudspanner-${case}:${version} reset
+	    echo "$(date) | CC | sleep 60s ..."
+	    sleep 60
 
             for round in {1..3}
             do
                 echo "$(date) | CC | start ${case}-${version} round ${round}"
                 sudo docker run --env-file config-${case}-${version}.env -it gcr.io/gcp-expert-sandbox-jim/til-about-cloudspanner-${case}:${version} load
                 echo "$(date) | CC | end ${case}-${version} round ${round}"
-	        echo "$(date) | CC | sleeping 300s ..."
-	        sleep 300
+	        echo "$(date) | CC | sleep 240s ..."
+	        sleep 240
             done
         done
     done	    
