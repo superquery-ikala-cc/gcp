@@ -33,7 +33,7 @@ function load() {
 		sleep 60
 
                 echo "$(date) | CC | start ${case}-${version} ccu ${ccu}"
-                sudo docker run --env-file config-${case}-${version}.env -it gcr.io/gcp-expert-sandbox-jim/til-about-cloudspanner-${case}:${version} load
+                sudo docker run --env-file config-${case}-${version}-${ccu}.env -it gcr.io/gcp-expert-sandbox-jim/til-about-cloudspanner-${case}:${version} load
                 echo "$(date) | CC | end ${case}-${version} ccu ${ccu}"
 	        echo "$(date) | CC | sleep 240s ..."
 	        sleep 240
