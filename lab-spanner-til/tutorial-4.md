@@ -83,7 +83,7 @@ cd til-about-cloudspanner/03-maximizing-data-load-throughput/version02/golang
 ### Build code
 
 ```
-sudo docker build -t gcr.io/{{project-id}}/til-about-cloudspanner-03:v1 --build-arg version=v1 .
+sudo docker build -t gcr.io/{{project-id}}/til-about-cloudspanner-03:v2 --build-arg version=v2 .
 ```
 
 ### Copy and adjust the configuration file
