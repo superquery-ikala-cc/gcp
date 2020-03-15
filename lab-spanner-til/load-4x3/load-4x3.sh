@@ -40,6 +40,6 @@ function load() {
 }
 # load
 
-$0
+$1
 
 echo "$(date) | CC | end load-4x3"
