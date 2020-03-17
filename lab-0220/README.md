@@ -1,1 +1,1 @@
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/home?cloudshell=true&cloudshell_git_repo=github.com/cclin81922/gcp.git&cloudshell_tutorial=lab-0220/part1/tutorial-01.md)
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/home/dashboard?cloudshell=true&cloudshell_git_repo=github.com/cclin81922/gcp.git&cloudshell_tutorial=lab-0220/part1/tutorial-01.md)
