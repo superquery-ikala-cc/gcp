@@ -231,9 +231,14 @@ gcloud compute networks peerings update servicenetworking-googleapis-com --netwo
 * VM on-prem-vm - - 6379 - -> private-memorystore-00 [o]
 * VM peered-vm - - 6379 - -> private-memorystore-00 [x]
 
+## Private FileStore
+
+TODO:
+
 ## Private NetApp
 
 TODO: need another private serivce connection
+
 
 ## Private Kubernetes
 
