@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "gcp-expert-sandbox-jim",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
