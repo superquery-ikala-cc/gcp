@@ -1,6 +1,8 @@
 steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
+  - '-h'
+  - 'Cache-Control:no-cache, max-age=0'
   - 'cp'
   - 'open-gcp/index.html'
   - 'gs://opengcp.mrcclin.com/index.html'
