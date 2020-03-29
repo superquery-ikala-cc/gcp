@@ -8,4 +8,4 @@ steps:
   - 'gs://opengcp.mrcclin.com/index.html'
 - name: 'gcr.io/gcp-expert-sandbox-jim/firebase'
   args:
-  [ 'deploy', '--only', 'hosting:gcp-expert-sandbox-jim', '--token', '${FIREBASE_TOKEN}']
+  [ 'deploy', '--only', 'hosting:gcp-expert-sandbox-jim', '--token', '${_FIREBASE_TOKEN}']
