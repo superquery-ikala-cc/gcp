@@ -10,4 +10,4 @@ steps:
   args:
   [ 'deploy', '--only', 'hosting:gcp-expert-sandbox-jim', '--token', '${_FIREBASE_TOKEN}']
 substitutions:
-    _FIREBASE_TOKEN:
+    _FIREBASE_TOKEN: none
