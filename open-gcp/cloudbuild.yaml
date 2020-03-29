@@ -2,3 +2,5 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
   - 'cp'
+  - 'open-gcp/index.html'
+  - 'gs://opengcp.mrcclin.com/index.html'
