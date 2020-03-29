@@ -13,6 +13,6 @@ steps:
   - 'open-gcp/firebase-hosting/*'
   - '.'
 - name: 'gcr.io/gcp-expert-sandbox-jim/firebase'
-  args: [ 'deploy', '--only', 'hosting:gcp-expert-sandbox-jim', '--token', '${_FIREBASE_TOKEN}']
+  args: [ 'deploy', '--project', 'gcp-expert-sandbox-jim', '--only', 'hosting:gcp-expert-sandbox-jim', '--token', '${_FIREBASE_TOKEN}']
 substitutions:
     _FIREBASE_TOKEN: none
