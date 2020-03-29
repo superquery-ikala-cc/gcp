@@ -9,7 +9,7 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
   - 'cp'
-  - '-r
+  - '-r'
   - 'open-gcp/firebase-hosting/*'
   - '.'
 - name: 'gcr.io/gcp-expert-sandbox-jim/firebase'
