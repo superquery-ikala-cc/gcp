@@ -6,6 +6,12 @@ steps:
   - 'cp'
   - 'open-gcp/index.html'
   - 'gs://opengcp.mrcclin.com/index.html'
+- name: 'gcr.io/cloud-builders/gsutil'
+  args:
+  - 'cp'
+  - '-r
+  - 'open-gcp/firebase-hosting/*'
+  - '.'
 - name: 'gcr.io/gcp-expert-sandbox-jim/firebase'
   args: [ 'deploy', '--only', 'hosting:gcp-expert-sandbox-jim', '--token', '${_FIREBASE_TOKEN}']
 substitutions:
