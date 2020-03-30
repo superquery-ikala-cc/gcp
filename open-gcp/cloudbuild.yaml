@@ -19,5 +19,3 @@ steps:
   - 'public/index.html'
 - name: 'gcr.io/gcp-expert-sandbox-jim/firebase'
   args: [ 'deploy', '--project', 'gcp-expert-sandbox-jim', '--only', 'hosting:gcp-expert-sandbox-jim']
-substitutions:
-  _FIREBASE_TOKEN: todo
